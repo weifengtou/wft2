@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test03</title>
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+	jQuery(document).ready(function($) {
+		$(".btn").on('click',function(e){
+			$('form').trigger('submit')
+		})
+	});
+	</script>
+</head>
+<body>
+		<form action="{:U('test5')}" enctype="multipart/form-data" method="post" >
+			<input type="file" name="photo" />
+
+			<btn class="btn">test</btn>
+		</form>
+</body>
+</html>

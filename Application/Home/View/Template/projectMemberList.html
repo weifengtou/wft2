@@ -1,0 +1,68 @@
+<?php if($project_members): ?>
+<?php foreach ($project_members as $k =>
+$v): ?>
+<div replaceId="{$v['mem_id']}">
+    <div id="show_mem_{$v['mem_id']}" class="show_mem">
+        <div class="pro_mem_edit_data" dataId="{$v['mem_id']}">
+            <!--信息-->
+            <div class="row">
+                <!--留白-->
+                <div class="span2"></div>
+                <!--头像-->
+                <div class="span1">
+                    <img src="{$v['mem_picture']}" alt="团队头像"></div>
+                <!--姓名 角色-->
+                <div class="span1">
+                    <p style="line-height:30px; min-width:80px">
+                        {$v['mem_name']}
+                        <br>
+                        <span class="text_yellow">[{$v['mem_role_name']}]</span>
+                    </p>
+                </div>
+                <!--职位-->
+                <div class="span1">
+                    <p class="text_yellow" style="line-height:30px; min-width:105px">【{$v['mem_pos']}】</p>
+                </div>
+                <!--简介-->
+                <div class="span6">
+                    <div class="row-fluid">
+                        <div class="span1"></div>
+                        <div class="span11">
+                            <p class="text_grey">{$v['mem_intro']}</p>
+                        </div>
+                    </div>
+                </div>
+                <!--留白-->
+                <div class="span1"></div>
+            </div>
+            <div style="padding:10px 0"></div>
+            <!--编辑-->
+            <div class="row">
+                <div class="span4"></div>
+                <div class="span4">
+                    <div class="row-fluid">
+                        <div class="span6 text-right">
+                            <div class="btn btn-info mem_edit_btn" style="width:60px" alt="编辑" dataId="{$v['mem_id']}">编辑</div>
+                        </div>
+                        <div class="span6 text-left">
+                            <div onclick="return confirm('确定要删除项目成员:{$v[mem_name]}?') ? delProMem({$v[mem_id]}) : ''" class="btn" style="width:60px" alt="删除">删除</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span4"></div>
+            </div>
+
+        </div>
+    </div>
+    <div id="edit_mem_{$v['mem_id']}" class="hidden add_edit_div">
+        {:W("UserCenter/projectMemberTpl",[$projectDetail,$v['mem_id'],$v])}
+    </div>
+    <div class="row">
+        <div class="span1"></div>
+        <div class="span10" style="padding:15px 0; border-bottom:#ccc dashed 2px"></div>
+        <div class="span1"></div>
+    </div>
+    <div style="height:20px"></div>
+</div>
+<?php endforeach; ?>
+<?php endif; ?>

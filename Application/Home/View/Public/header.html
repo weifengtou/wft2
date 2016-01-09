@@ -1,0 +1,89 @@
+<div id="header1">
+	<div class="container" style="position:relative">
+		<div class="pull-left" style="width:120px;">
+			<i class="icon-map-marker icon-white"></i>
+			郑州[<a class="text_white" href="" style="color:#ececec">切换城市</a>]
+		</div>
+		<div class="pull-right text-center" style="width:130px; border-left:#232833 solid 1px">
+			<a class="text_white" href="">我们的服务</a>
+		</div> 
+		<?php if(session('userDetail')) : ?>    <!-- 判断用户是否登录 -->
+			<div class="pull-right text-center" style="width:80px; border-left:#232833 solid 1px" >
+				<a class="text_white" href="{:U('User/logout')}">退出</a>
+			</div>
+			<div class="pull-right text-left" style="min-width:40px; padding:0 20px">		<!-- 用户登录 -->
+				您好，<a class="text_white" class="text_white" class="text_white" href="{:U('UserCenter/index')}"><?php echo $userBase['nick_name'] ?></a>
+			</div>
+		<?php else : ?>												<!-- 用户未登录 -->
+			<div class="pull-right text-left" style="width:60px;" >
+				<a class="text_white" class="text_white" href="{:U('User/login')}">登录</a>
+			</div>
+			<div class="pull-right text-left" style="width:60px;" >
+				<a class="text_white" href="{:U('User/register')}">注册</a>
+			</div>
+		<?php endif; ?>
+		
+		<div class="clearfix"></div>
+
+		<!--城市选择与筛选-->
+		<div class="head_city" style="display:none">
+			<strong>热门城市</strong>
+			<ul style=" margin:0">
+				<li class="city_choose">北京</li>
+				<li>上海</li>
+				<li>天津</li>
+				<li class="city_choose">郑州</li>
+				<li>深圳</li>
+				<li>重庆</li>
+				<div class="clearfix"></div>
+			</ul>
+
+			<div style="padding:8px 0"></div>
+
+			<strong>全部城市</strong>
+
+			<ul style="margin:0" class="head_letter">
+				<li>A</li>
+				<li class="letter_choose">B</li>
+				<li>C</li>
+				<li>D</li>
+				<li>E</li>
+				<li>F</li>
+				<li>G</li>
+				<li>H</li>
+				<li>I</li>
+				<li>J</li>
+				<li>K</li>
+				<li>L</li>
+				<li>M</li>
+				<li>N</li>
+				<li>O</li>
+				<li>P</li>
+				<li>Q</li>
+				<li>R</li>
+				<li>S</li>
+				<li>T</li>
+				<li>U</li>
+				<li>V</li>
+				<li>W</li>
+				<li>X</li>
+				<li>Y</li>
+				<li>Z</li>
+				<div class="clear"></div>
+			</ul>
+
+			
+		</div>
+	</div>	
+</div>
+<div id="header2">
+	<div class="container">
+		<div class="pull-left"><a href="{:U('Index/index')}"><img class="img-responsive" src="__HOME__/images/header/logo.gif" alt="logo"></a></div>
+		<div class="pull-right" style="padding:0 30px 0 30px"><a href="{:U('Community/index')}"><img class="img-responsive" src="__HOME__/images/header/shequ.gif" alt="社区"></a></div>
+		<div class="pull-right" style="padding:0 30px"><a href="{:U('Investor/investors')}"><img class="img-responsive" src="__HOME__/images/header/touziren.gif" alt="投资人"></a></div>
+		<div class="pull-right" style="padding:0 30px"><a href="{:U('Project/projects')}"><img class="img-responsive" src="__HOME__/images/header/haoxiangmu.gif" alt="好项目"></a></div>
+		<div class="pull-right" style="padding:0 30px"><a href="{:U('Index/index')}"><img class="img-responsive" src="__HOME__/images/header/shouye.gif" alt="首页"></a></div>
+		<div class="clearfix"></div>
+	</div>
+</div>
+<div class="container reset-0"></div>

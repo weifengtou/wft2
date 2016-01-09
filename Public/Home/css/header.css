@@ -1,0 +1,23 @@
+#header1{
+	background:#303642;color:#fff;height:35px;line-height:35px;
+}
+#header1 div{
+	display: block;
+}
+
+#header2{
+	background:#fff;
+	height:104px;
+	line-height:104px;
+	border-bottom:1px solid #ccc;
+}
+
+/**********************城市的选择*************************/
+.head_city{ width:560px; padding:20px; position:absolute; background:#fffefe; color:#888; border:#ccc solid 1px; box-shadow:1px 1px 3px; top:36px; left:0; z-index:100}
+.head_city ul li{ display:inline-block; float:left; margin-right:8px; padding:2px 6px; font-size:12px; border-radius:2px; cursor:pointer;}
+.head_city ul li:hover{ color:#da251c}
+.head_city ul li.city_choose{ background:#da251c; color:#fff}
+.head_city ul.head_letter{ background:url(../images/header/head-bg1.gif) 0 bottom repeat-x; display:block; height:30px}
+.head_city ul.head_letter li{ display:inline-block; float:left; margin-right:5px; padding:5px 3px; font-size:12px; border-radius:2px; cursor:pointer;}
+.head_city ul.head_letter li:hover{ color:#da251c; background:none};
+.head_city ul.head_letter li.letter_choose{ color:#da251c; border-bottom:#da251c solid 2px;}

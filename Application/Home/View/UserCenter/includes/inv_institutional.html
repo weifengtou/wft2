@@ -1,0 +1,521 @@
+<div id="institutional_investor" class="container investor hidden" style="border:#dcdcdc solid 1px; background:#fff; border-radius:5px; padding:70px 0 60px 0">
+    <form action="{:U('inv_institutional')}" method="post">
+        <!--机构名称-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">
+                机构名称
+            </div>
+
+            <div class="span5">
+                <div class="row-fluid">
+                    <input name="inst_name" class="span11 focused" type="text" placeholder="请输入投资人姓名">
+                </div>
+            </div>
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <p id="warn_inst_name" class="creat_fontb">最多20个汉字</p>
+                    </div>
+                    <div class="span1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--性质（下拉列表）-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">
+                性质
+            </div>
+
+            <div class="span5">
+            	<select name="quality">
+            		<option value=''>未选择</option>
+            		<foreach name="allQuality" item="vo">
+            			<option value="{$vo.quality_id}">{$vo.quality_name}</option>
+            		</foreach>
+            		
+            	</select>
+            </div>   
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <p id="warn_inst_quality" class="creat_fontb">请选择</p>
+                    </div>
+                    <div class="span1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--联系方式-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">
+                联系方式
+            </div>
+
+            <div class="span5">
+                <div class="row-fluid">
+                    <input name="inst_link" class="span11 focused" type="text" placeholder="请输入机构投资人联系方式">
+                </div>
+            </div>
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <p id="warn_inst_link" class="creat_fontb">请正确填写联系方式</p>
+                    </div>
+                    <div class="span1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+        
+        <!--所在地区（未改动 同项目创建）-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">
+                所在地区
+            </div>
+
+            <div class="span5">
+                <div class="row-fluid">
+                    <select name="inst_province" class="span4">
+                        <option value='0'>未选择</option>
+                        <?php foreach (M('BaseArea')->where('area_pid=0')->select() as $k => $v): ?>
+                            <option value="{$v['area_id']}">{$v['area_name']}</option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <select name="inst_city" class="span4">
+                        <option value='0'>未选择</option>
+                    </select>
+
+                    <select name="inst_county" class="span4">
+                        <option value='0'>未选择</option>
+                    </select>
+                    <script>
+                    jQuery(document).ready(function($) {
+                        $("select[name='inst_province']").change(function (e) {
+                           if ($(this).val()!=='0') {
+                                $("select[name='inst_city']").attr("disabled",null);
+                                $.post(
+                                    "{:U('getAreas')}",
+                                    {'area_pid':$(this).val()},
+                                    function (data) {
+                                        $("select[name='inst_city']").children("option[value='0']").trigger('click');
+                                        $("select[name='inst_city']").html(data);
+                                    }
+                                );
+                            }else{
+                                $("select[name='inst_city']").children("option[value='0']").trigger('click');
+                                $("select[name='inst_city']").get(0).selectedIndex=0;
+                                $("select[name='inst_city']").attr("disabled","disabled");
+                            }
+                        })
+                        $("select[name='inst_city']").change(function (e) {
+                            if ($(this).val()!=='0') {
+                                $("select[name='inst_county']").attr("disabled",null);
+                                $.post(
+                                    "{:U('getAreas')}",
+                                    {'area_pid':$(this).val()},
+                                    function (data) {
+                                        $("select[name='inst_county']").children("option[value='0']").trigger('click');
+                                        $("select[name='inst_county']").html(data);
+                                    }
+                                );
+                            }else{
+                                $("select[name='inst_county']").get(0).selectedIndex=0;
+                                $("select[name='inst_county']").attr("disabled","disabled");
+                            }
+                        });
+                        $("select[name='inst_province']").children("option").on('click','',function (e) {
+                            if ($(this).val()!=='0') {
+                                $("select[name='inst_city']").attr("disabled",null);
+                            }else{
+                                $("select[name='inst_city']").children("option[value='0']").trigger('click');
+                                $("select[name='inst_city']").get(0).selectedIndex=0;
+                                $("select[name='inst_city']").attr("disabled","disabled");
+                            }
+                        });
+                        $("select[name='inst_city']").on('click',"option",'',function (e) {
+                            if ($(this).val()!=='0') {
+                                $("select[name='inst_county']").attr("disabled",null);
+                            }else{
+                                $("select[name='inst_county']").get(0).selectedIndex=0;
+                                $("select[name='inst_county']").attr("disabled","disabled");
+                            }
+                        });
+                        var province = "0";
+                        $("select[name='inst_province']").children("option[value='"+province+"']").trigger('click');
+                    });
+                    </script>
+                </div>
+            </div>
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <p id="warn_inst_area" class="creat_fontb">请选择</p>
+                    </div>
+                    <div class="span1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+        
+        <!--投资额度-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">
+                投资额度
+            </div>
+
+            <div class="span1">
+                <input name="inst_min_amount" class="input-mini" type="text">
+            </div>
+
+            <div class="span1 creat_fonta">
+                万元&nbsp;——
+            </div>
+
+            <div class="span1">
+                <input name="inst_max_amount" class="input-mini" type="text">
+            </div>
+
+            <div class="span2 creat_fonta">
+                万元
+            </div>
+            
+            <div class="span5">
+            	<div class="row-fluid">
+                    <div class="span11">
+                        <p id="warn_inst_amount" class="creat_fontb">请填写最小最大预投资额</p>
+                    </div>
+                    <div class="span1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--关注行业-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">
+                关注行业
+            </div>
+
+            <div class="span5">
+ 				<foreach name="alltrade" item="vo">
+					<label class="checkbox inline" style="margin:0 10px 0 0;">
+						<input name="inst_focusTrade" type="checkbox" value="{$vo.trade_id}">{$vo.trade_name}
+					</label>
+				</foreach>
+            </div>
+            
+            <div class="span5">
+            	<div class="row-fluid">
+                    <div class="span11">
+                        <p id="warn_inst_trade" class="creat_fontb">请选择感兴趣的行业</p>
+                    </div>
+                    <div class="span1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--隐私设置-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">
+                隐私设置
+            </div>
+
+            <div class="span5">
+                <div class="row-fluid">
+                    <label class="span5 radio inline">
+                        <input type="radio" value="xx" name="inst_privacy">所有人可见      
+                    </label>
+
+                    <label class="span5 radio inline">
+                        <input type="radio" value="xx" name="inst_privacy">微风投用户可见      
+                    </label>
+                </div>
+            </div>
+            <div class="span5">
+            	<div class="row-fluid">
+                    <div class="span11">
+                        <p id="warn_inst_privacy" class="creat_fontb"></p>
+                    </div>
+                    <div class="span1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--投资理念-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">
+                投资理念
+            </div>
+
+            <div class="span7">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <textarea name="inst_concept" id="inst_concept" class="textatra_resize_none" style="width:100% !important" style="visibility:hidden;"></textarea>
+                          
+                    </div>
+                </div>    
+            </div>
+
+
+            <div class="span3">
+            	<div class="row-fluid">
+                    <div class="span11">
+                        <p id="warn_inst_concept" class="creat_fontb"></p>
+                    </div>
+                    <div class="span1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--投资案例-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">
+                投资案例
+            </div>
+
+            <div class="span7">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <textarea name="inst_casue" id="inst_casue" class="textatra_resize_none" style="width:100% !important" style="visibility:hidden;"></textarea>
+                        
+                    </div>
+                </div>    
+            </div>
+
+            
+            <div class="span3">
+            	<div class="row-fluid">
+                    <div class="span11">
+                        <p id="warn_inst_casue" class="creat_fontb"></p>
+                    </div>
+                    <div class="span1">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--线-->
+        <div class="row">
+            <div class="span1">
+            </div>
+
+            <div class="span10" style="border-top:#cfcfcf 2px solid;">
+            </div>
+
+            <div class="span1">
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--协议-->
+        <div class="row">
+            <div class="span4">
+            </div>
+
+            <div class="span4">
+                <label class="checkbox">
+                    <input id="inst_access_agreement" type="checkbox">
+                    我已阅读并同意
+                    <a href="#" style="color:#da251c">《微风投网站协议》</a>
+                </label>
+                <div style="padding:15px 0 15px 0"></div>
+                <!-- <a href="{:U('completeInvestor')}"><div id="project_submit" class="btn btn-danger user_found_ana" alt="创建项目">成为投资人</div></a> -->
+                <div id="institutional_submit" class="btn btn-danger user_found_ana" alt="成为投资人">成为投资人</div>
+            </div>
+
+            <div class="span4">
+            </div>
+        </div>
+
+        <div style="padding:15px 0 0px 0"></div>
+
+
+
+
+    </form>
+        
+</div>
+
+
+<!-- 文本编辑器实例化 -->
+
+<script>
+	var inst_concept;
+	var inst_casus;
+	KindEditor.ready(function(K) {
+	    //创建编辑器 ，初始化配置参数 
+	    inst_concept = K.create('textarea[name="inst_concept"]', {
+	    //配置编辑器的工具栏，其中'/'表示换行，'|'表示分隔符 
+	    	items : ['undo','redo','|',
+	        	 'preview','print','templete','cut','copy','paste','|',
+	        	 'justifyleft','justifycenter','justifyright','justifyfull','insertorderedlist','insertunorderedlist','selectall','|',
+	        	 'fullscreen','/','formatblock','fontname','fontsize','|',
+	        	 'forecolor','hilitecolor','bold','italic','underline','lineheight','removeformat','|',
+	        	 'image','multiimage','flash','hr','emoticons','baidumap','pagebreak','link','unlink','anchor'],
+	    	allowFileManager : true, //true时显示浏览器远程服务器按钮 
+	    	autoHeightMode : true, //值为true，并引入autoheight.js插件时自动调整高度
+	    	afterCreate : function() {	//设置编辑器创建后执行的回调函数
+	   			this.loadPlugin('autoheight');
+	    	},
+	    	afterUpload : function(url) {	//上传文件后执行的回调函数 
+	        	var firstimageoption = '<option value="' + url + '">' + url + '</option>';
+	        	var selectoption = '<option value="' + url + '" selected="selected">' + url + '</option>';
+	        	$("#firstimage").append(firstimageoption);
+	        	$("#images").append(selectoption);
+	   		}
+	   	});
+	    inst_casus = K.create('textarea[name="inst_casue"]', {
+	        //配置编辑器的工具栏，其中'/'表示换行，'|'表示分隔符 
+	       	items : ['undo','redo','|',
+	       		'preview','print','templete','cut','copy','paste','|',
+	        	'justifyleft','justifycenter','justifyright','justifyfull','insertorderedlist','insertunorderedlist','selectall','|',
+	        	'fullscreen','/','formatblock','fontname','fontsize','|',
+	        	'forecolor','hilitecolor','bold','italic','underline','lineheight','removeformat','|',
+	        	'image','multiimage','flash','hr','emoticons','baidumap','pagebreak','link','unlink','anchor'],
+	     	allowFileManager : true, //true时显示浏览器远程服务器按钮 
+	        autoHeightMode : true, //值为true，并引入autoheight.js插件时自动调整高度
+	        afterCreate : function() {	//设置编辑器创建后执行的回调函数
+	            this.sync();
+	            this.loadPlugin('autoheight');
+	        },
+	        afterUpload : function(url) {	//上传文件后执行的回调函数 
+	            var firstimageoption = '<option value="' + url + '">' + url + '</option>';
+	            var selectoption = '<option value="' + url + '" selected="selected">' + url + '</option>';
+	            $("#firstimage").append(firstimageoption);
+	            $("#images").append(selectoption);
+	        }
+	    });
+	    
+	    /* 提交  */
+		K("#institutional_submit").click(function(e){
+			
+			/* 是否阅读协议  */
+			if ($("input[id='inst_access_agreement']").is(':checked')===true) {}else{
+            	alert("请先阅读并同意《微风投网站协议》");
+            	return false;
+        	}
+			/* alert($("select[name='quality']").find('option:selected').val());
+			return false; */
+			/* 关注行业  */
+			var focusTrade = '';
+			var t = $("input[name='inst_focusTrade']");
+			for(var i=0;i<t.length;i++){
+				if(t[i].checked == true){
+					focusTrade+= t[i].value+',';
+				}
+			}
+			/* 提交数据  */
+			$.post("{:U('inv_institutional')}",
+				{inv_name:$("input[name='inst_name']").val(),quality:$("select[name='quality']").find('option:selected').val(),inv_link:$("input[name='inst_link']").val(),
+					province:$("select[name='inst_province']").find('option:selected').val(),city:$("select[name='inst_city']").find('option:selected').val(),county:$("select[name='inst_county']").find('option:selected').val(),
+					max_amount:$("input[name='inst_max_amount']").val(),min_amount:$("input[name='inst_min_amount']").val(),focus_trade:focusTrade,privacy:$("input[name='inst_privacy']:checked").val(),
+					concept:inst_concept.text(),casus:inst_casus.text()
+				},
+				function(data){
+					alert(data);
+					if(data == -1){
+						$("#warn_inst_name").html("<font style='color:red;'>请正确填写投资人姓名！</font>");
+						location.href = "#warn_inst_name";
+					}else if(data == -13){
+						$("#warn_inst_quality").html("<font style='color:red;'>请选择！</font>");
+						location.href = "#warn_inst_quality";
+						$("#warn_inst_name").html("如××（2-10个汉字） 或是 ××××·××××（最多30个汉字）");
+					}else if(data == -3){
+						$("#warn_inst_link").html("<font style='color:red;'>请正确填写联系方式！</font>");
+						location.href = "#warn_inst_link";
+						$("#warn_inst_name").html("如××（2-10个汉字） 或是 ××××·××××（最多30个汉字）");
+						$("#warn_inst_quality").html("");
+					}else if(data == -4 || data == -5 || data == -6){
+						$("#warn_inst_area").html("<font style='color:red'>请选择！</font>");
+						location.href = "#warn_inst_area";
+						$("#warn_inst_name").html("如××（2-10个汉字） 或是 ××××·××××（最多30个汉字）");
+						$("#warn_inst_quality").html("");
+						$("#warn_inst_link").html("请填写投资人的联系方式");
+					}else if(data == -7){
+						$("#warn_inst_amount").html("<font style='color:red'>请正确填写金额</font>");
+						location.href = "#warn_inst_amount";
+						$("#warn_inst_name").html("如××（2-10个汉字） 或是 ××××·××××（最多30个汉字）");
+						$("#warn_inst_quality").html("");
+						$("#warn_inst_link").html("请填写投资人的联系方式");
+						$("#warn_inst_area").html("请选择");
+					}else if(data == -8){
+						$("#warn_inst_amount").html("<font style='color:red'>请正确填写最大、最小金额</font>");
+						location.href = "#warn_inst_amount";
+						$("#warn_inst_name").html("如××（2-10个汉字） 或是 ××××·××××（最多30个汉字）");
+						$("#warn_inst_quality").html("");
+						$("#warn_inst_link").html("请填写投资人的联系方式");
+						$("#warn_inst_area").html("请选择");
+					}else if(data == -9){
+						$("#warn_inst_trade").html("<font style='color:red;'>请选择感兴趣的行业！</font>");
+						location.href = "#warn_inst_trade";
+						$("#warn_inst_name").html("如××（2-10个汉字） 或是 ××××·××××（最多30个汉字）");
+						$("#warn_inst_quality").html("");
+						$("#warn_inst_link").html("请填写投资人的联系方式");
+						$("#warn_inst_area").html("请选择");
+						$("#warn_inst_amount").html('请填写最小最大预投资额');
+					}else if(data == -10){
+						$("#warn_inst_privacy").html("<font style='color:red;'>请选择隐私设置！</font>");
+						location.href = "#warn_inst_privacy";
+						$("#warn_inst_name").html("如××（2-10个汉字） 或是 ××××·××××（最多30个汉字）");
+						$("#warn_inst_quality").html("");
+						$("#warn_inst_link").html("请填写投资人的联系方式");
+						$("#warn_inst_area").html("请选择");
+						$("#warn_inst_amount").html("请填写最小最大预投资额");
+						$("#warn_inst_trade").html("请选择感兴趣的行业");
+					}else if(data == -11){
+						$("#warn_inst_concept").html("<font style='color:red;'>请填写您的投资理念，字数应在5-500字！</font>");
+						location.href = "#warn_inst_privacy";
+						$("#warn_inst_name").html("如××（2-10个汉字） 或是 ××××·××××（最多30个汉字）");
+						$("#warn_inst_quality").html("");
+						$("#warn_inst_link").html("请填写投资人的联系方式");
+						$("#warn_inst_area").html("请选择");
+						$("#warn_inst_amount").html("请填写最小最大预投资额");
+						$("#warn_inst_trade").html("请选择感兴趣的行业");
+						$("#warn_inst_privacy").html("");
+					}else if(data == -12){
+						$("#warn_inst_privacy").html("<font style='color:red;'>请选择隐私设置！</font>");
+						location.href = "#warn_inst_privacy";
+						$("#warn_inst_name").html("如××（2-10个汉字） 或是 ××××·××××（最多30个汉字）");
+						$("#warn_inst_quality").html("");
+						$("#warn_inst_link").html("请填写投资人的联系方式");
+						$("#warn_inst_area").html("请选择");
+						$("#warn_inst_amount").html("请填写最小最大预投资额");
+						$("#warn_inst_trade").html("请选择感兴趣的行业");
+						$("$warn_inst_privacy").html("");
+						$("#warn_inst_concept").html("");
+					}else if(data == 1){
+						location.href = "{:U('completeInvestor')}"
+					}
+                }
+			)
+		})
+	})
+	    
+    
+</script>

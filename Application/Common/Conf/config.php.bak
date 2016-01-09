@@ -1,0 +1,88 @@
+<?php
+define("UPLOAD_ROOT","./Uploads/"); //定义上传根目录
+return [
+    /* 数据缓存设置 */
+    'DATA_CACHE_PREFIX' => 'wft_', // 缓存前缀
+    'DATA_CACHE_TYPE'   => 'File', // 数据缓存类型
+    
+    /* 数据库设置 */
+    'DB_TYPE'               =>  'mysqli',     // 数据库类型
+    'DB_HOST'               =>  '192.168.0.44', // 服务器地址
+    'DB_NAME'               =>  'wft_v2',          // 数据库名
+    'DB_USER'               =>  'root',      // 用户名
+    'DB_PWD'                =>  '',          // 密码
+    'DB_PORT'               =>  '3306',        // 端口
+    'DB_PREFIX'             =>  'wft_',    // 数据库表前缀
+
+    'MODULE_ALLOW_LIST'  => array('Home','Admin','Common'),
+
+    /* URL配置 */
+    'URL_CASE_INSENSITIVE' => true, //默认false 表示URL区分大小写 true则表示不区分大小写
+    'URL_MODEL'            => 3, //URL模式
+    'VAR_URL_PARAMS'       => '', // PATHINFO URL参数变量
+    'URL_PATHINFO_DEPR'    => '/', //PATHINFO URL分割符
+
+    /* 模板相关配置 */
+    'TMPL_PARSE_STRING' => [
+        '__STATIC__' => __ROOT__ . '/Public/static/',
+        '__COMMON__' => __ROOT__ . '/Public/Common/',   
+        '__HOME__' => __ROOT__ . '/Public/Home/',
+        '__ADMIN__' => __ROOT__ . '/Public/Admin/',
+        '__UPLOADS__' => __ROOT__.'/Uploads/',
+        '__RUNTIME__' => RUNTIME_PATH,
+        '__OLD_URL__' => 'http://www.weifengtou.com/',
+    ],
+
+    /* 模板引擎设置 */
+    'TMPL_ACTION_ERROR'     =>  'Public:jump', // 默认错误跳转对应的模板文件
+    'TMPL_ACTION_SUCCESS'   =>  'Public:jump', // 默认成功跳转对应的模板文件
+    'TMPL_EXCEPTION_FILE'   =>  'Public:exception',// 异常页面的模板文件
+
+    /* SESSION 和 COOKIE 配置 */
+    'SESSION_PREFIX' => 'wft_home', //session前缀
+    'COOKIE_PREFIX'  => 'wft_home_', // Cookie前缀 避免冲突
+
+    //全局过滤函数
+    'DEFAULT_FILTER' => 'htmlspecialchars',
+
+    //设置静态缓存文件后缀
+    'HTML_FILE_SUFFIX'  =>  '.html', 
+
+    //显示错误信息
+    'SHOW_ERROR_MSG' =>true,
+    //trace
+    'SHOW_PAGE_TRACE' =>true,
+
+    //seo
+    'TITLE'=>'微风投',
+    'KEYWORDS'=>'微风投',
+    'DESCRIPTION'=>'微风投',
+
+    //服务器ip
+    'WEB_IP'=>'192.168.0.15',
+    //网站url
+    'WEB_URL'=>'http://yc.wft.com/index.php/',
+    //网站域名
+    'WEB_DOMAIN'=>'yc.wft.com',
+    'DOCUMENT_ROOT'=>'D:/WWW/wft2/',
+
+    // 配置邮件发送服务器
+    'MAIL_SMTPAUTH' =>TRUE, //启用smtp认证
+    'MAIL_HOST' =>'smtp.163.com', //邮件发送SMTP服务器
+    'MAIL_CHARSET' =>'UTF-8', //字符集
+    'MAIL_ENCODING' =>'base64', //编码方式
+    'MAIL_PORT' =>25, //邮件发送端口
+    'MAIL_SMTPAUTH' =>TRUE,
+    'MAIL_USERNAME' =>'wtsjwft@163.com', //SMTP服务器登陆用户名
+    'MAIL_FROM' =>'wtsjwft@163.com', //发件人地址（也就是你的邮箱）
+    'MAIL_FROMNAME' =>'梧桐盛嘉', //发件人姓名
+    'MAIL_PASSWORD' =>'wtsjwftYC163', //SMTP服务器登陆密码
+    // 'MAIL_SECURE' =>'tls',
+    'MAIL_ISHTML' =>TRUE, // 是否HTML格式邮件
+
+    // 其他数据库
+    'BASIC_LIB_TABLES' => 'mysql://wft_open:WeiFengTou2015@116.255.217.235:3306/basic_lib_tables',
+
+    //上传二级目录
+    'UPLOAD2DIR' => 'wodrow/',
+];

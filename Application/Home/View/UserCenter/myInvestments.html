@@ -1,0 +1,196 @@
+<extend name="Base:userCenterLayout" />
+
+<block name="head">
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	var selMenu = $("#selMenu");
+	selMenu.on('click','li',function (e) {
+		selMenu.find('li').removeClass('usercenter_active');
+		$(this).addClass('usercenter_active');
+		$(".menuFor").addClass('hidden');
+		$("div[for='"+$(this).attr("id")+"']").removeClass("hidden")
+	})
+	selMenu.find('li').first().trigger('click');
+});
+</script>
+</block>
+
+<block name="body">
+	<!--推送通知 可关闭模块-->
+	<div class="row-fluid bg-fafafa user_tz" style="border-bottom:#f0f0f0 solid 1px">
+		<div class="span1 text-right">
+			<img src="__HOME__/images/user/use_tz.png">
+		</div>
+		<div class="span10" style="color:#666">
+			推送通知
+		</div>
+
+		<!--关闭按钮-->
+		<div class="span1 text-left">
+			<button class="close" style="float:none">&times;</button>
+		</div>
+	</div>
+
+	<!--主体-->
+	<div class="user_main">
+
+		<!--我的投资 标题-->
+		<div class="row-fluid">
+			<div class="span4">
+				<div class="row-fluid">
+					<div class="span11 offset1">
+						<p style="font-size:18px; margin-bottom:20px">我的投资</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--项目分类导航-->
+		<div class="row-fluid myproject_nav">
+			<ul id="selMenu">
+				<li class="span2 text-center" id="全部投资"><a href="cursor_pointer">我的全部投资</a></li>
+				<li class="span2 text-center" id="投资成功"><a href="cursor_pointer">投资成功项目</a></li>
+			</ul>
+		</div>
+		
+		<!--项目状态-->
+		<div class="row-fluid">
+			<ul style="background:#fcfcfc; height:30px; line-height:30px; list-style:none; margin-top:10px; margin-bottom:25px">
+				<li class="span3 text-center" style=" height:30px; line-height:30px;">项目信息</li>
+				<li class="span6 text-center" style=" height:30px; line-height:30px;">状态</li>
+				<li class="span2" style=" height:30px; line-height:30px;">操作</li>
+			</ul>
+		</div>
+
+
+		<!--我的项目  带标签-->
+		<div>
+			<div class="row-fluid">
+
+				<div id="id1" class="myproject">
+					<!--项目图片-->
+					<div class="span3">
+						<div class="row-fluid" style=" position:relative">
+							<div class="span11 offset1">
+								<a href="#"><img src="__HOME__/images/user/20150806105651_172.jpg" class="img-polaroid"></a>
+							</div>
+							<div style="position:absolute; right:-115px; top:-10px">
+								<img src="__HOME__/images/user/user_bq_rzcg.png">
+							</div>
+						</div>
+					</div>
+
+					<!--项目信息-->
+					<div class="span6">
+						<div class="row-fluid">
+							<div class="span11 offset1">
+								<p><a href="#" style="font-size:16px; color:#333">西默科技智能家居路由器</a></p>
+								<p style="font-size:12px" class="text_666">项目编号：XM201412101605</p>
+								<div class="row-fluid" style=" margin-top:5%">
+									<!--已完成-->
+									<div class="span3 text_666" style="line-height:1.8">
+										<p>已完成：<br/>
+										<span style=" color:#f05666">100</span>%
+										</p>
+									</div>
+
+									<!--融资总额-->
+									<div class="span4 text_666" style="line-height:1.8">
+										<p>融资总额：<br/>
+										<span style=" color:#f05666">4,000,000</span>万
+										</p>
+									</div>
+
+									<!--历时时间-->
+									<div class="span3 text_666" style="line-height:1.8">
+										<p>历时时间：<br/>
+										<span style=" color:#f05666">185</span>天
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+
+					<!--查看详情-->	
+					<div class="span3" style=" margin-top:5%">
+						<p><a href="#" style="display:block;height:32px; padding:0 20px; background:#f05666; color:#fff; line-height:32px;width:60px; text-align:center">查看详情</a></p>
+					</div>	
+				</div>
+
+			</div>
+
+		</div>
+
+		<!--分隔线-->
+		<div class="row-fluid">
+			<div class="span12" style="border-bottom:#e1e4e9 solid 1px; margin-bottom:35px"></div>
+		</div>
+
+		<!--我的项目  带标签-->
+		<div>
+			<div class="row-fluid">
+
+				<div id="id1" class="myproject">
+					<!--项目图片-->
+					<div class="span3">
+						<div class="row-fluid" style=" position:relative">
+							<div class="span11 offset1">
+								<a href="#"><img src="__HOME__/images/user/20150806105651_172.jpg" class="img-polaroid"></a>
+							</div>
+						</div>
+					</div>
+
+					<!--项目信息-->
+					<div class="span6">
+						<div class="row-fluid">
+							<div class="span11 offset1">
+								<p><a href="#" style="font-size:16px; color:#333">西默科技智能家居路由器</a></p>
+								<p style="font-size:12px" class="text_666">项目编号：XM201412101605</p>
+								<div class="row-fluid" style=" margin-top:5%">
+									<!--已完成-->
+									<div class="span3 text_666" style="line-height:1.8">
+										<p>已完成：<br/>
+										<span style=" color:#f05666">100</span>%
+										</p>
+									</div>
+
+									<!--融资总额-->
+									<div class="span4 text_666" style="line-height:1.8">
+										<p>融资总额：<br/>
+										<span style=" color:#f05666">4,000,000</span>万
+										</p>
+									</div>
+
+									<!--历时时间-->
+									<div class="span3 text_666" style="line-height:1.8">
+										<p>历时时间：<br/>
+										<span style=" color:#f05666">185</span>天
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+
+					<!--查看详情-->	
+					<div class="span3" style=" margin-top:5%">
+						<p><a href="#" style="display:block;height:32px; padding:0 20px; background:#f05666; color:#fff; line-height:32px;width:60px; text-align:center">查看详情</a></p>
+					</div>	
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+	</div>
+
+	<!--原始-->
+	<div class="container">
+		<?php foreach ($myProjects as $k => $v): ?>
+			完善<a href="{:U('completeProject',['project_id'=>$v['project_id']])}">{$v['pro_name']}</a><hr>
+		<?php endforeach; ?>
+	</div>
+</block>

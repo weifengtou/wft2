@@ -1,0 +1,794 @@
+<extend name="Base:userCenterLayout" />
+
+<block name="head">
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+	var selMenu = $("#selMenu");
+	selMenu.on('click','li',function (e) {
+		selMenu.find('li').removeClass('usercenter_active');
+		$(this).addClass('usercenter_active');
+		$(".menuFor").addClass('hidden');
+		$("div[for='"+$(this).attr("id")+"']").removeClass("hidden")
+	})
+	selMenu.find('li').first().trigger('click');
+});
+</script>
+<!-- 日历样式 -->
+<style>
+.date-picker-wp {
+	display: none;
+	position: absolute;
+	background: #f1f1f1;
+	left: 40px;
+	top: 40px;
+	border-top: 4px solid #3879d9;
+}
+
+.date-picker-wp table {
+	border: 1px solid #ddd;
+}
+
+.date-picker-wp td {
+	background: #fafafa;
+	width: 22px;
+	height: 18px;
+	border: 1px solid #ccc;
+	font-size: 12px;
+	text-align: center;
+}
+
+.date-picker-wp td.noborder {
+	border: none;
+	background: none;
+}
+
+.date-picker-wp td a {
+	color: #1c93c4;
+	text-decoration: none;
+}
+
+.strong {
+	font-weight: bold
+}
+
+.hand {
+	cursor: pointer;
+	color: #3879d9
+}
+</style>
+
+</block>
+
+<block name="body">
+	<!--推送通知 可关闭模块-->
+	<div class="row-fluid bg-fafafa user_tz" style="border-bottom:#f0f0f0 solid 1px">
+		<div class="span1 text-right">
+			<img src="__HOME__/images/user/use_tz.png">
+		</div>
+		<div class="span10" style="color:#666">
+			推送通知
+		</div>
+
+		<!--关闭按钮-->
+		<div class="span1 text-left">
+			<button class="close" style="float:none">&times;</button>
+		</div>
+	</div>
+
+	<!--主体-->
+	<div class="user_main">
+
+		<!--设置中心 标题-->
+		<div class="row-fluid">
+			<div class="span4">
+				<div class="row-fluid">
+					<div class="span11 offset1">
+						<p style="font-size:18px; margin-bottom:20px">设置中心</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--项目分类导航-->
+		<div class="row-fluid myproject_nav">
+			<ul id="selMenu">
+				<li class="span2 text-center" id="账号安全"><a class="cursor_pointer">账号安全</a></li>
+				<li class="span2 text-center" id="个人资料"><a class="cursor_pointer">个人资料</a></li>
+				<li class="span2 text-center" id="头像资料"><a class="cursor_pointer">头像资料</a></li>
+			</ul>
+		</div>
+
+		<!--分隔线-->
+		<!-- <div class="row-fluid">
+			<div class="span12" style="border-bottom:#e1e4e9 solid 1px; margin-bottom:35px"></div>
+		</div> -->
+		
+<!-- -----------------------------账号安全--------------------------------- -->
+		<div for="账号安全" class="hidden menuFor">
+			<!--基本信息-->
+			<div class="row-fluid">
+				<div class="span12" style=" background:#fafafa; border:#b7bbc2 solid 1px;padding:15px 20px">
+
+					<!--用户名-->
+					<div class="row-fluid">
+						<div class="span2 text-right text_666">
+						用户名：
+						</div>
+						<div class="span10 text_333">
+						测试号
+						</div>
+					</div>
+
+					<!--绑定手机-->
+					<div class="row-fluid">
+						<div class="span2 text-right text_666">
+						绑定手机：
+						</div>
+						<div class="span10 text_333">
+						138****0123&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" style="color:#45b0e5">修改</a>
+						</div>
+					</div>
+
+					<!--绑定邮箱-->
+					<div class="row-fluid">
+						<div class="span2 text-right text_666">
+						绑定邮箱：
+						</div>
+						<div class="span10 text_333">
+						138****23@qq.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" style="color:#45b0e5">修改</a>
+						</div>
+					</div>
+
+					<!--上次登录-->
+					<div class="row-fluid">
+						<div class="span2 text-right text_666">
+						上次登录：
+						</div>
+						<div class="span10 text_333">
+						2015年08月12日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;12:30:00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;河南 郑州   
+						</div>
+					</div>
+
+					<!--安全级别-->
+					<div class="row-fluid">
+						<div class="span2 text-right text_666">
+						安全级别：
+						</div>
+						<div class="span10 text_333">
+						良好
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!--登录密码-->
+			<div class="row-fluid" style="border-bottom:#e1e4e9 solid 1px; padding:30px 0">
+				<!--图标加名称-->
+				<div class="span3">
+					<div class="row-fluid">
+						<div class="span6 text-right">
+							<img src="__HOME__/images/user/user_auther11.gif" alt="登录密码">
+						</div>
+						<div class="span5 offset1 text_666" style="height:60px; line-height:60px; font-size:16px">
+						登录密码
+						</div>
+					</div>
+				</div>
+
+				<!--内容-->
+				<div class="span5">
+					<div class="row-fluid">
+						<div class="span3 offset1 text_666" style="height:60px; line-height:60px; font-size:14px">
+						密码强度
+						</div>
+						<div class="span5 text_666" style="height:60px; line-height:60px; font-size:14px">
+						    <div class="progress" style="height:12px; margin:24px 0">
+							    <div class="bar bar-danger" style="width: 33%;"></div>
+							    <div class="bar bar-warning" style="width: 33%;"></div>
+							    <div class="bar bar-success" style="width: 34%;"></div>
+						    </div>
+						</div>
+						<div class="span1 offset1 text_666" style="height:60px; line-height:60px; font-size:14px">
+						强
+						</div>
+					</div>
+				</div>
+
+				<!--图标加名称-->
+				<div class="span4">
+					<div class="row-fluid">
+						<div class="span4 offset2">
+						</div>
+						<div class="span4" style="height:60px; line-height:60px; font-size:14px">
+							<a href="#" style="height:60px; line-height:60px; font-size:14px; color:#45b0e5">修改</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!--手机绑定-->
+			<div class="row-fluid" style="border-bottom:#e1e4e9 solid 1px; padding:30px 0">
+				<!--图标加名称-->
+				<div class="span3">
+					<div class="row-fluid">
+						<div class="span6 text-right">
+							<img src="__HOME__/images/user/user_auther21.gif" alt="手机绑定">
+						</div>
+						<div class="span5 offset1 text_666" style="height:60px; line-height:60px; font-size:16px">
+						手机绑定
+						</div>
+					</div>
+				</div>
+
+				<!--内容-->
+				<div class="span5">
+					<div class="row-fluid">
+						<div class="span5 offset1 text_666" style="height:60px; line-height:60px; font-size:14px">
+						138****0123
+						</div>
+					</div>
+				</div>
+
+				<!--图标加名称-->
+				<div class="span4">
+					<div class="row-fluid">
+						<div class="span4 offset2" style="height:60px; line-height:60px; font-size:14px; color:#99cc66">
+						</div>
+						<div class="span4">
+							<a href="#" style="height:60px; line-height:60px; font-size:14px; color:#45b0e5">修改</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			<!--邮箱绑定-->
+			<div class="row-fluid" style="border-bottom:#e1e4e9 solid 1px; padding:30px 0">
+				<!--图标加名称-->
+				<div class="span3">
+					<div class="row-fluid">
+						<div class="span6 text-right">
+							<img src="__HOME__/images/user/user_auther31.gif" alt="邮箱绑定">
+						</div>
+						<div class="span5 offset1 text_666" style="height:60px; line-height:60px; font-size:16px">
+						邮箱绑定
+						</div>
+					</div>
+				</div>
+
+				<!--内容-->
+				<div class="span5">
+					<div class="row-fluid">
+						<div class="span5 offset1 text_666" style="height:60px; line-height:60px; font-size:14px">
+						138****23@qq.com
+						</div>
+					</div>
+				</div>
+
+				<!--图标加名称-->
+				<div class="span4">
+					<div class="row-fluid">
+						<div class="span4 offset2" style="height:60px; line-height:60px; font-size:14px; color:#99cc66">
+						</div>
+						<div class="span4">
+							<a href="#" style="height:60px; line-height:60px; font-size:14px; color:#45b0e5">修改</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+		<!--账户安全结束-->
+
+<!-- -----------------------------个人资料--------------------------------- -->
+		<div for="个人资料" class="hidden menuFor">
+			<form class="form-horizontal">
+
+				<!--基本资料-->
+				<div>
+					<!--标题-->
+					<div class="row-fluid" style="height:30px; line-height:30px; color:#999; background:#fafafa">
+						<div class="span11" style="margin-left:30px">
+						基本资料
+						</div>
+					</div>
+					
+					<!--表单-->
+					<div class="row-fluid">
+
+						<div class="span8">
+							
+							<!--昵称-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="nicheng" style="width:80px"><span style=" color:#f05666">*</span>昵称</label>
+								<div class="controls" style="margin-left:100px">
+									<input type="text" id="nicheng" placeholder="测试号" value="{$userBase.nick_name}">
+								</div>
+							</div>
+
+							<!--性别-->
+							<?php echo $this->userBase; ?>
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="xingbie" style="width:80px"><span style=" color:#f05666">*</span>性别</label>
+								<div class="controls" style="margin-left:100px">
+									<label class="radio inline">
+									<?php if($userBase[sex]==0){ ?>
+										<input type="radio" value="0" name="sex" checked="checked">男
+									<?php }else{ ?>
+										<input type="radio" value="0" name="sex">男
+									<?php } ?>
+									</label>
+									<label class="radio inline">
+										<?php if($userBase[sex]==1){ ?>
+											<input type="radio" value="1" name="sex" checked="checked">女
+										<?php }else{ ?>
+											<input type="radio" value="1" name="sex">女
+										<?php } ?>
+									</label>
+									<label class="radio inline">
+										<?php if($userBase[sex]==2){ ?>
+											<input type="radio" value="2" name="sex" checked="checked">隐私
+										<?php }else{ ?>
+											<input type="radio" value="2" name="sex">隐私
+										<?php } ?>
+									</label>
+								</div>
+							</div>
+
+							<!--生日-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="birthday" style="width:80px">生日</label>
+								<div class="controls" style="margin-left:100px">
+									<input type="text" id="birthday" placeholder="1990-1-1" onfocus="this.blur()" value="{$userBase.birthday}">
+									<script>
+	/* 日历  */
+	onload = function(){
+		new DatePicker('_DatePicker',{
+			aId : 'birthday',
+			className : 'date-picker-wp',
+			seprator : '-'
+		})
+	}
+	
+	var DatePicker = function() {
+		//返回对拥有指定 ID 的第一个对象的引用
+		var $ = function(i) {
+			return document.getElementById(i);
+		}
+		//onclick只能绑定一个事件;
+		//如果要绑定多个事件，在IE中可以使用attachEvent()方法，object.attachEvent(event,function);
+		//attachEvent()是微软的私有方法，火狐和其它浏览器不支持，但是它们都支持W3C标准的addEventListener()方法，
+		//element.addEventListener(type,listener,useCapture),type:事件类型、listener:function侦听到的事件处理函数、useCapture:Boolean(default=false);
+		var addEvent = function(o, e, f) {
+			//o:object对象，e:event事件类型，f:function方法 
+			o.addEventListener ? o.addEventListener(e, f, false) : o
+					.attachEvent('on' + e, function() {
+						f.call(o)
+					})
+		}
+		//日历显示距离边框位置 
+		//offsetTop  指 obj 距离上方或上层控件的位置，整型，单位像素
+		//offsetLeft 指obj 距离左方或上层控件的位置，整型，单位像素
+		var getPos = function(el) {
+			//pos:position
+			for ( var pos = {
+				x : 0,
+				y : 0
+			}; el; el = el.offsetParent) {
+				pos.x += el.offsetLeft;
+				pos.y += el.offsetTop;
+			}
+			return pos;
+		}
+		var init = function(n, config) {
+			window[n] = this;
+			//返回当天是一个星期中的第几天 ，0~6
+			Date.prototype._fd = function() {
+				var d = new Date(this);//当前时间 
+				d.setDate(1);//setDate(day)用于设置一个月的某一天,day:1~31
+				return d.getDay();//返回表示星期的某一天的数字,0~6
+			}
+			//返回当月有多少天 ,28~31
+			Date.prototype._fc = function() {
+				var d1 = new Date(this), d2 = new Date(this);
+				d1.setDate(1);
+				d2.setDate(1);
+				d2.setMonth(d2.getMonth() + 1);//getMonth()返回表示月份的数字 ，setMonth()用于设置月份
+				return (d2 - d1) / 86400000;//d2-d1获取一个月的毫秒 ，864000000ms 代表一天 
+			}
+			this.n = n;
+			this.config = config;
+			this.D = new Date;//当前时间 ，如：Wed Sep 23 2015 11:09:27 GMT+0800
+			this.el = $(config.aId);//定位标签元素 
+			this.el.title = this.n + 'DatePicker';//日历名 
+			this.update();
+			this.bind();
+		}
+		init.prototype = {
+				update : function(y, m) {
+					var con = [];
+					var week = [ 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa' ];
+					var D = this.D;//当前时间 
+					var _this = this;//日历对象
+					//年份、月份加减
+					var fn = function(a, b) {
+						return '<td title="' + _this.n
+								+ 'DatePicker" class="noborder hand" onclick="'
+								+ _this.n + '.update(' + a + ')">' + b + '</td>'
+					}; 
+					var _html = '<table cellpadding=0 cellspacing=2>';
+					y && D.setYear(D.getFullYear() + y);//setYear()用于设置年份 ，getFullYear()返回一个表示年份的 4 位数字
+					m && D.setMonth(D.getMonth() + m);
+					var year = D.getFullYear();//当前年份 
+					var month = D.getMonth() + 1;//当前月份 
+					var date = D.getDate();//当天的日期 
+					for ( var i = 0; i < week.length; i++)
+						con.push('<td title="'+this.n+'DatePicker" class="noborder">'+ week[i] + '</td>');
+					for ( var i = 0; i < D._fd(); i++)
+						con.push('<td title="'+this.n+'DatePicker" class="noborder"> </td>');
+					for ( var i = 0; i < D._fc(); i++)
+						con.push('<td class="hand" onclick="' + this.n + '.fillInput(' + year + ', ' + month + ', '+ (i + 1) + ')">' + (i + 1) + '</td>');
+					var toend = con.length % 7;//con，table中所有的td标签对 (最后一行的剩余不算)，
+					//计算最后一行有几个空格 
+					if (toend != 0)
+						for ( var i = 0; i < 7 - toend; i++)
+							con.push('<td class="noborder"> </td>');
+					_html += '<tr>'
+							+ fn("-1, null", "<<")
+							+ fn("null, -1", "<")
+							+ '<td title="'+this.n+'DatePicker" colspan=3 class="strong">'
+							+ year + '/' + month + '/' + date + '</td>'
+							+ fn("null, 1", ">") + fn("1, null", ">>") + '</tr>';
+					//判断table中是否换行
+					for ( var i = 0; i < con.length; i++)
+						_html += (i == 0 ? '<tr>' : i % 7 == 0 ? '</tr><tr>' : '')
+								+ con[i] + (i == con.length - 1 ? '</tr>' : '');
+					!!this.box ? this.box.innerHTML = _html : this.createBox(_html);
+				},
+				//显示到input框中的日期 
+				fillInput : function(y, m, d) {
+					var s = this.config.seprator || '/';
+					this.el.value = y + s + m + s + d;
+					this.box.style.display = 'none';
+				},
+				show : function() {
+					var s = this.box.style, is = this.mask.style;
+					s['left'] = is['left'] = getPos(this.el).x + 'px';
+					s['top'] = is['top'] = getPos(this.el).y + this.el.offsetHeight
+							+ 'px';
+					s['display'] = is['display'] = 'block';
+					is['width'] = this.box.offsetWidth - 2 + 'px';
+					is['height'] = this.box.offsetHeight - 2 + 'px';
+				},
+				hide : function() {
+					this.box.style.display = 'none';
+					this.mask.style.display = 'none';
+				},
+				bind : function() {
+					var _this = this;
+					addEvent(document, 'click', function(e) {
+						e = e || window.event;
+						var t = e.target || e.srcElement;//target事件属性返回事件的目标节点（触发该事件的节点），srcElement设置或获取触发事件的属性
+						if (t.title != _this.n + 'DatePicker') {
+							_this.hide()
+						} else {
+							_this.show()
+						}
+					})
+				},
+				//创建日历表 
+				createBox : function(html) {
+					var box = this.box = document.createElement('div');
+					var mask = this.mask = document.createElement('iframe');
+					box.className = this.config.className || 'datepicker';
+					//mask.src = 'javascript:false';
+					mask.frameBorder = 0;//iframe边框 
+					box.style.cssText = 'position:absolute;display:none;z-index:9999';
+					mask.style.cssText = 'position:absolute;display:none;z-index:9998';
+					box.title = this.n + 'DatePicker';
+					box.innerHTML = html;
+					document.body.appendChild(box);
+					document.body.appendChild(mask);
+					//alert(this.mask);
+					return box;
+				}
+			}
+			return init;
+		}();
+</script>
+								</div>
+							</div>
+
+							<!--邮箱-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="nicheng" style="width:80px">邮箱</label>
+								<div class="controls" style="margin-left:100px;line-height:30px">
+									138****23@qq.com&nbsp;&nbsp;&nbsp;&nbsp;<span style=" color:#45b0e5">已认证</span>
+								</div>
+							</div>
+
+							<!--所在地区-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="nicheng" style="width:80px">所在地区</label>
+								<div class="controls row-fluid" style="margin-left:100px">
+									<select name="province" class="inline span4">
+				                        <option value='0'>未选择</option>
+                           	 			<?php foreach (M('BaseArea')->where('area_pid=0')->select() as $k => $v): ?>
+                            				<option value="{$v['area_id']}">{$v['area_name']}</option>
+                            			<?php endforeach; ?>
+				                    </select>
+
+				                    <select name="city" class="inline span4">
+				                        <option value='0'>未选择</option>
+				                    </select>
+
+				                     <select name="county" class="inline span4">
+				                        <option value='0'>未选择</option>
+				                    </select>
+				                    <script>
+                        			jQuery(document).ready(function($) {
+                            			$("select[name='province']").change(function (e) {
+                               				if ($(this).val()!=='0') {
+                                    			$("select[name='city']").attr("disabled",null);
+                                    			$.post(
+                                        			"{:U('getAreas')}",
+                                        			{'area_pid':$(this).val()},
+                                        			function (data) {
+                                            			$("select[name='city']").children("option[value='0']").trigger('click');
+                                            			$("select[name='city']").html(data);
+                                        			}
+                                    			);
+                                			}else{
+                                    			$("select[name='city']").children("option[value='0']").trigger('click');
+                                    			$("select[name='city']").get(0).selectedIndex=0;
+                                    			$("select[name='city']").attr("disabled","disabled");
+                                			}
+                            			})
+                            			$("select[name='city']").change(function (e) {
+                                			if ($(this).val()!=='0') {
+                                    			$("select[name='county']").attr("disabled",null);
+                                    			$.post(
+                                        			"{:U('getAreas')}",
+                                        			{'area_pid':$(this).val()},
+                                        			function (data) {
+                                            			$("select[name='county']").children("option[value='0']").trigger('click');
+                                            			$("select[name='county']").html(data);
+                                        			}
+                                    			);
+                                			}else{
+                                    			$("select[name='county']").get(0).selectedIndex=0;
+                                    			$("select[name='county']").attr("disabled","disabled");
+                                			}
+                            			});
+                        				$("select[name='province']").children("option").on('click','',function (e) {
+                        					if ($(this).val()!=='0') {
+                        						$("select[name='city']").attr("disabled",null);
+                        					}else{
+                                    			$("select[name='city']").children("option[value='0']").trigger('click');
+                                    			$("select[name='city']").get(0).selectedIndex=0;
+                                    			$("select[name='city']").attr("disabled","disabled");
+                                			}
+                        				});
+                        				$("select[name='city']").on('click',"option",'',function (e) {
+                        					if ($(this).val()!=='0') {
+                        						$("select[name='county']").attr("disabled",null);
+                        					}else{
+                                    			$("select[name='county']").get(0).selectedIndex=0;
+                                    			$("select[name='county']").attr("disabled","disabled");
+                                			}
+                        				});
+                        				var province = "0";
+                        				$("select[name='province']").children("option[value='"+province+"']").trigger('click');
+                        			});
+                        			</script>
+								</div>
+							</div>
+
+							<!--个人简介-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="nicheng" style="width:80px">个人简介</label>
+								<div class="controls" style="margin-left:100px;">
+									    <textarea rows="3" class="textatra_resize_none" style="width:100%"></textarea>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<!--实名资料-->
+				<div>
+					<!--标题-->
+					<div class="row-fluid" style="height:30px; line-height:30px; color:#999; background:#fafafa">
+						<div class="span11" style="margin-left:30px">
+						实名资料
+						</div>
+					</div>
+
+					<!--表单-->
+					<div class="row-fluid">
+
+						<div class="span8">
+							
+							<!--真实姓名-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="nicheng" style="width:80px"><span style=" color:#f05666">*</span>真实姓名</label>
+								<div class="controls" style="margin-left:100px">
+									<input type="text" id="nicheng" placeholder="请输入真实姓名" value="{$userBase.true_name}">
+								</div>
+							</div>
+
+							<!--真实姓名-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="nicheng" style="width:80px">身份证号码</label>
+								<div class="controls" style="margin-left:100px">
+									<input type="text" id="nicheng" placeholder="请输入身份证号码">
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+
+				</div>
+
+				<!--教育情况-->
+				<div>
+					<!--标题-->
+					<div class="row-fluid" style="height:30px; line-height:30px; color:#999; background:#fafafa">
+						<div class="span11" style="margin-left:30px">
+						教育情况
+						</div>
+					</div>
+
+					<!--表单-->
+					<div class="row-fluid">
+
+						<div class="span8">
+
+							<!--毕业院校-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="nicheng" style="width:80px">毕业院校</label>
+								<div class="controls" style="margin-left:100px">
+									<input type="text" id="nicheng" placeholder="请输入毕业院校" value="{$userBase.school}">
+								</div>
+							</div>
+
+							<!--学历-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="nicheng" style="width:80px">学历</label>
+								<div class="controls row-fluid" style="margin-left:100px">
+									<select class="inline span4">
+				                        <option>小学</option>
+				                        <option>初中</option>
+				                        <option>高中</option>
+				                    </select>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+				<!--其他资料-->
+				<div>
+					<!--标题-->
+					<div class="row-fluid" style="height:30px; line-height:30px; color:#999; background:#fafafa">
+						<div class="span11" style="margin-left:30px">
+						其他资料
+						</div>
+					</div>
+
+					<!--表单-->
+					<div class="row-fluid">
+
+						<div class="span8">
+
+							<!--婚姻状况-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="xingbie" style="width:80px">婚姻状况</label>
+								<div class="controls" style="margin-left:100px">
+									<label class="radio inline">
+										<input type="radio" value="0" name="marriage">未婚
+									</label>
+									<label class="radio inline">
+										<input type="radio" value="0" name="marriage">已婚
+									</label>
+									<label class="radio inline">
+										<input type="radio" value="0" name="marriage">隐私
+									</label>
+								</div>
+							</div>
+
+							<!--所在行业-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="nicheng" style="width:80px">所在行业</label>
+								<div class="controls row-fluid" style="margin-left:100px">
+									<select name="father_trade" class="inline span3">
+				                        <option value='0'>未选择</option>
+                            			<?php foreach (M('BaseTrade')->where('trade_pid=0')->select() as $k => $v): ?>
+                            				<option value="{$v['trade_id']}">{$v['trade_name']}</option>
+                           	 			<?php endforeach; ?>
+				                    </select>
+
+				                    <select name="full_trade" class="inline span3">
+				                        <option value='0'>未选择</option>
+				                    </select>
+
+				                     <!-- <select class="inline span3">
+				                        <option>8日</option>
+				                    </select> -->
+				                    <script>
+                        			jQuery(document).ready(function($) {
+                            			$("select[name='father_trade']").change(function () {
+                                			if($(this).val()!=='0'){
+                                    			$("select[name='full_trade']").attr("disabled",null);
+                                    			$.post(
+                                        			"{:U('getTrades')}",
+                                        			{'trade_pid':$(this).val()},
+                                        			function (data) {
+                                            			$("select[name='full_trade']>option[value='0']").trigger('click');
+                                            			$("select[name='full_trade']").html(data);
+                                        			}
+                                    			);
+                                			}else{
+                                    			$("select[name='full_trade']").get(0).selectedIndex=0;
+                                    			$("select[name='full_trade']").attr("disabled","disabled");
+                                			}
+                            			});
+                            			$("select[name='father_trade']").on('click',"option",'',function (e) {
+                                			if($(this).val()!=='0'){
+                                    			$("select[name='full_trade']").attr("disabled",null);
+                                			}else{
+                                    			$("select[name='full_trade']").get(0).selectedIndex=0;
+                                    			$("select[name='full_trade']").attr("disabled","disabled");
+                                			}
+                            			});
+                        				var father_trade = "0";
+                        				$("select[name='father_trade']").children("option[value='"+father_trade+"']").trigger('click');
+                        			});
+                        			</script>
+								</div>
+							</div>
+
+							<!--月收入-->
+							<div class="control-group" style="margin:15px 0">
+								<label class="control-label" for="nicheng" style="width:80px">月收入</label>
+								<div class="controls row-fluid" style="margin-left:100px">
+									<select class="inline span4">
+				                        <option>2w以下</option>
+				                        <option>2w-10w</option>
+				                        <option>10w以上</option>
+				                    </select>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+
+				<!--提交按钮-->
+				<div class="row-fluid" style="margin-top:40px">
+
+					<div class="span8">
+						<button style="margin-left:100px; background:#f05666; color:#fff; padding:7px 30px; font-size:15px" class="btn" type="button">提交</button>
+					</div>
+
+				</div>
+
+
+			</form>
+
+		</div>
+
+
+
+	</div>
+
+</block>

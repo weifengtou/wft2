@@ -1,0 +1,89 @@
+<div id="pro_member" class="container pro_ohter_data hidden" style="border:#dcdcdc solid 1px; background:#fff; border-radius:5px; padding:70px 0 60px 0">
+	<!--添加团队成员成功 编辑成员-->
+	<div id="edit_mem">
+		<include file="Template:projectMemberList" />
+	</div>
+
+	<!--添加团队成员-->
+	<div id="add_mem" class="add_edit_div">
+		{:W("UserCenter/projectMemberTpl",[$projectDetail,'new',null])}
+		<div style="padding:15px 0 15px 0"></div>
+		<div class="row">
+			<div class="span1"></div>
+			<div class="span10" style="border-bottom:#ccc solid 2px"></div>
+			<div class="span1"></div>
+		</div>
+		<div style="height:20px"></div>
+	</div>
+
+	<div class="row">
+		<div class="span3"></div>
+
+		<div class="span3 text-right">
+			<a href="{:U('UserCenter/index')}"><div class="btn btn-large" alt="取消" style="width:195px">保存草稿，完善后提交</div></a>
+		</div>
+
+		<div class="span3 text-left">
+			<div onclick="javascript:$('#审核资料').trigger('click');" class="btn btn-large btn-danger" alt="取消" style="width:195px">保存并进入下一步</div>
+		</div>
+
+		<div class="span3"></div>
+	</div>
+</div>
+<script>
+function form_prompt_reset () {
+	$(".creat_fontb_mem_picture_add").removeClass("verify_error").html("请上传本人真实头像<br>图片大小为200x200像素，支持jpg/gif/jpeg");
+	$(".creat_fontb_mem_name").removeClass("verify_error").html("请填写团队成员的真实名字，2-20字");
+	$(".creat_fontb_mem_pos").removeClass("verify_error").html("请填写团队成员担当的职位，2-20字");
+	$(".creat_fontb_mem_role").removeClass("verify_error").html("");
+	$(".creat_fontb_mem_intro").removeClass("verify_error").html("请填写成员的个人简介，字数在10到2000之间");
+}
+//编辑成员
+$('#pro_member').on('click','.mem_edit_btn',function (e) {
+	var selId = $(this).attr("dataId");
+	$(".add_edit_div").addClass("hidden");
+	$("#add_mem").removeClass("hidden");
+	$(".show_mem").removeClass("hidden");
+	$("#show_mem_"+selId).addClass("hidden");
+	$("#edit_mem_"+selId).removeClass("hidden");
+});
+//删除成员
+function delProMem (mem_id) {
+	$.post(
+		"{:U('deleteProjectMember')}",
+		{"mem_id":mem_id},
+		function (data) {
+			if (data=="删除成功") {
+				$("div[replaceId="+mem_id+"]").remove();
+			}
+			alert(data);
+		}
+	);
+}
+//重置表单
+function form_reset () {
+	form_prompt_reset();
+	$("form").each(function(index, el) {
+		$(this).find("input[name='mem_picture']").val($(this).find("input[name='old_img_url']").val());
+	});
+	$("#add_mem").find(".mem_pic_img").html("<img src='__HOME__/images/project/logg.gif' class='no_mem_picture' />");
+	$("#add_mem").find("form").each(function (e) {
+		$(this)[0].reset();
+	})
+	$("#add_mem").find("form").find("input[name='mem_role']").first().trigger("click");
+}
+//编辑返回
+function form_back () {
+	form_reset ();
+	$(".show_mem").removeClass("hidden");
+	$(".add_edit_div").addClass("hidden");
+	$("#add_mem").removeClass("hidden");
+}
+//刷新重置表单
+jQuery(document).ready(function($) {
+	form_reset();
+	$(".mem_pic_img").resize(function (e) {
+		on_bottom();
+	})
+});
+</script>

@@ -1,0 +1,70 @@
+.con-width{ width:1160px; margin:0 auto}
+a:hover{ text-decoration:none};
+.reset-0{ margin:0; padding:0;padding: 0;}
+.reset_0{ margin:0; padding:0;padding: 0;}
+/*默认验证样式*/
+.verify_default{}
+/*验证错误样式*/
+.verify_error{
+	color:red !important;
+}
+/*垂直居中*/
+.vertical_middle{
+	vertical-align:middle;
+}
+.width_1170{
+	width:1170px;
+}
+/*textarea禁止拖动*/
+.textatra_resize_none{
+	resize:none;
+}
+
+/*靠底部对齐*/
+.on_bottom{}
+
+.pos_fixed{
+	position: fixed;
+}
+.cursor_pointer{
+	cursor: pointer;
+}
+
+/********************字体 背景 颜色*******************/
+.body_font_family{
+	font-family: "微软雅黑";
+}
+.text_666{ color:#666}
+.text_333{ color:#333}
+.text_yellow{ color:#ff8a00;}
+.text_grey{ color:#888;}
+.text_red{ color:#da251c}
+.text_white{ color:#fff}
+.text_white:hover{ color:#fff}
+
+.bg-f7f7f7{
+	background: #f0f0f0;
+}
+.bg-green{
+	background: green;
+}
+.bg-fafafa{ background:#fafafa}
+
+
+
+/********************上传按钮*******************/
+.upuploading{ width:82px; height:30px; border:none; position:relative;background:url(./common_images/wjyl1.gif) 0 0 no-repeat;}
+.upuploading input{opacity: 0;filter: alpha(opacity:0);top: 0;right: 0;width:82px;height:30px;cursor:pointer;background:url(./common_images/wjyl1.gif) 0 0 no-repeat; position:absolute;}
+.upuploading input:hover{ background: url(./common_images/wjyl2.gif) 0 0 no-repeat;}
+
+/*头部标题*/
+.use-font1{ font-size:18px; font-size:18px; font-weight:bold; height:85px; line-height:85px; color:#888;display: block;}
+
+
+/******************按钮*********************/
+.user_found_ana{ width:263px; height:40px; line-height:40px; font-size:18px}
+
+/*居中*/
+.margin_0_auto{
+	margin: 0 auto;
+}

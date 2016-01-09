@@ -1,0 +1,24 @@
+.user-bgone{ padding-bottom:180px; background:url(../images/user/use-bg1.jpg) center bottom repeat-x;display: block;}
+
+#register_form .row {
+	height:40px;
+	line-height: 40px;
+}
+.span_name_l{ color:#444; height:40px; line-height:40px;}
+.span_name_l span{ color:#da251c; padding:0 3px;}
+.span_name_r{ color:#888; height:40px; line-height:40px;}
+.user_man{ width:222px; height:30px; padding:5px 10px 5px 55px; background:url(../images/user/man.gif);}
+.user_man input{ border:none;}
+.user_password{ width:222px; height:30px; padding:5px 10px 5px 55px; background:url(../images/user/sec.gif);}
+.user_password input{ border:none;}
+.user_veri{ width:122px; height:30px; padding:5px 10px 5px 55px; background:url(../images/user/yan.gif);}
+.user_veri input{ border:none; width:122px; height:20px; line-height:20px; padding:5px 0px}
+.user_regi_an{ width:263px; height:30px; line-height:30px; font-size:18px}
+
+.user-login_bg{ background:url(../images/user/user_login_bg1.gif) 0 0 repeat; padding:55px 0 45px 0; width:100%;}
+.user-login{ width:287px; background:#fff; padding:50px 30px 25px 30px; box-shadow:1px 1px 4px 0px #4d4d4d; position:relative;}
+.user-login_error{ width:257px; height:18px; line-height:18px; background:#ffd0d0; position:absolute; padding:4px 15px; z-index:1; top:15px; color:#ff4040; font-size:12px;}
+.user-error_display{ display:none;}
+.user-login_error p{ display:block; width:237px; height:18px; line-height:18px; background:#ffd0d0; color:#ff4040;}
+.user-login_error span{ cursor:pointer; padding:0 2px;}
+

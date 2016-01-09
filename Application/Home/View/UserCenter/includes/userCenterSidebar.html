@@ -1,0 +1,57 @@
+<div style="padding:20px 0; border-right:#f0f0f0 solid 1px">
+
+
+
+	<!--头像信息-->
+	<div class="row-fluid">
+		<div class="span3">
+		</div>
+		<div class="span6 text-center">
+			<img class="tx_border" src="__HOME__/images/user/tx1.jpg">
+		</div>
+		<div class="span3">
+		</div>
+	</div>
+
+	<!--基本信息-->
+	<div class="row-fluid" style="border-bottom:#f0f0f0 solid 1px">
+		<div class="span1">
+		</div>
+		<div class="span10 text-center">
+			<div style="font-size:18px;line-height:2.0">{$hello}{$nickname}</div>
+			<div style="line-height:2.0"><span class="text_666">等级：</span>高级会员</div>
+			<div style="line-height:2.0"><span class="text_666">积分：</span>100000分</div>
+			
+			<!--站位用 暂时不用-->
+			<div style="padding:25px 0"></div>
+		</div>
+		<div class="span1">
+		</div>
+	</div>
+
+	<!--导航-->
+	<div class="user_nav">
+		<ul class="reset_0" id="left_menus">
+			<li urlId="index">用户概况</li>
+			<li urlId="myProjects">我的项目<span class="badge num">{$pro_count}</span></li>
+			<li urlId="myInvestments">我的投资</li>
+			<li urlId="myComments">我的评论</li>
+			<li urlId="myMessages">我的消息<span class="badge num">10</span></li>
+			<li urlId="registrationManagement">报名管理</li>
+			<li urlId="AuthenticationManagement">认证管理</li>
+			<li urlId="myCommunity">我的社区</li>
+			<li urlId="settingCenter">设置中心</li>
+			<li urlId="serviceCenter">服务中心</li>
+		</ul>
+	</div>
+
+	<script>
+	jQuery(document).ready(function($) {
+		$("#left_menus").on('click', 'li', function(event) {
+			event.preventDefault();
+			location.href = "__URL__/" + $(this).attr('urlId');
+		});
+	});
+	</script>
+
+</div>

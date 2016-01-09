@@ -1,0 +1,49 @@
+<!-- common layout -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="__COMMON__/common_images/logo16.png">
+    
+    <!-- seo -->
+    <title><?php 
+    echo C('SEO_TITLE')?C('SEO_TITLE'):C('TITLE');
+    ?></title>
+    <meta name="KEYWORDS" content="<?php 
+    echo C('SEO_KEYWORDS')?C('SEO_KEYWORDS'):C('KEYWORDS');
+    ?>"><meta name="DESCRIPTION" content="<?php 
+    echo C('SEO_DESCRIPTION')?C('SEO_DESCRIPTION'):C('DESCRIPTION');
+    ?>" />
+
+    <!-- head -->
+    <include file="Public:head" />
+    <link href="__HOME__/css/userCenter.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bg-f7f7f7 body_font_family">
+
+    <!-- 页面公共头 -->
+	<include file="Public:header" />
+
+    <!-- 内容 -->
+    <div class="container">
+        <div class="bg-fafafa pull-left" style="width:19%">
+            <include file="UserCenter/includes:userCenterSidebar" />
+        </div>
+        <div class="pull-left" style="width:81%">
+            <div class="text-left">
+                <include file="Public:body" />
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+		
+
+    <!-- 页面公共底 -->
+	<include file="Public:footer" />
+
+</body>
+</html>

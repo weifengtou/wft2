@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" id="viewport"
+	content="width=device-width, initial-scale=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="__COMMON__/common_images/logo16.png">
+
+<!-- seo -->
+<title>
+	<?php 
+    echo C('SEO_TITLE')?C('SEO_TITLE'):C('TITLE');
+    ?>
+</title>
+<meta name="KEYWORDS"
+	content="<?php 
+    echo C('SEO_KEYWORDS')?C('SEO_KEYWORDS'):C('KEYWORDS');
+    ?>">
+<meta name="DESCRIPTION"
+	content="<?php 
+    echo C('SEO_DESCRIPTION')?C('SEO_DESCRIPTION'):C('DESCRIPTION');
+    ?>" />
+
+<!-- head -->
+<include file="Public:head" />
+
+<link rel="stylesheet" href="__ADMIN__/css/admin.css">
+<script>
+	jQuery(document).ready(function($) {
+		opt_left_fixed();
+		opt_left_h();
+		opt_footer_bl();
+		window.onresize = function() {
+			opt_left_fixed();
+			opt_left_h();
+			opt_footer_bl();
+		};
+	});
+	function opt_left_fixed() {
+		if ($(window).width() < 768) {
+			$("#admin_left").removeClass('pos_fixed');
+		} else {
+			$("#admin_left").addClass('pos_fixed');
+		}
+	}
+	function opt_left_h() {
+		$("#admin_left").height($(window).height() - $("#header>.navbar").height())
+	}
+	function opt_footer_bl() {
+		var admin_main_min_h = $(window).height() - $("#header>.navbar").height() - $("#footer").height();
+		admin_main_min_h += "px";
+		$("#admin_main").css({'min-height':admin_main_min_h});
+	}
+</script>
+</head>
+<body>
+	<include file="Public:header" />
+	<div id="admin_body" class="container-fluid reset_0">
+		<div id="admin_left"
+			class="col-lg-2 col-md-3 col-sm-4 reset_0 pos_fixed">
+			<include file="Public:lefter" />
+		</div>
+		<div id="admin_right" class="col-lg-offset-2 col-lg-10 col-md-offset-3 col=md-9 col-sm-offset-4 col-sm-8">
+			<div id="admin_main">
+				<div class="row">
+					<div class="col-lg-12">
+						<ol class="breadcrumb">
+							<li>
+								<a href="{:U('Admin/Index/index')}">微风投后台</a>
+							</li>
+							<li>
+								<a href="{:U(CONTROLLER_NAME.'/index')}"><?php echo M('AdminNavigation')->where(['name'=>CONTROLLER_NAME])->getField('title') ?></a>
+							</li>
+							<li>
+								<a href="{:U(ACTION_NAME,['menu_id'=>I('get.menu_id')])}"><?php echo get_list_field($menus,'id',I('get.menu_id'),'title'); ?></a>
+							</li>	
+							<li class="pull-right">
+								<a href="{$_SERVER['HTTP_REFERER']}">返回</a>
+							</li>
+						</ol>
+				    </div>
+				</div>
+				<?php if (I('get.menu_id')): ?>
+					<div class="row">
+						<div class="col-lg-12">
+					        <h2 class="page-header"><?php echo get_list_field($menus,'id',I('get.menu_id'),'title'); ?></h1>
+					    </div>
+					</div>
+				<?php endif; ?>
+				<block name="body"></block>
+			</div>
+			<include file="Public:footer" />
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<extend name="Base:layout_fluid" />
+
+<block name="head">
+	<!-- DataTables -->
+	<link rel="stylesheet" type="text/css" href="__STATIC__/DataTables-1.10.7/media/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="__STATIC__/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
+
+	<!-- self -->
+	<script>
+		$(document).ready( function () {
+		    var table = $('#table_id').DataTable({
+		    	language: DataTableLanguageCN,
+		    	"columnDefs": [{
+		            "searchable": false,
+		            "orderable": false,
+		            "targets": 0
+		        }],
+		        "order": [[1, 'asc']]
+		    });
+		});
+	</script>
+</block>
+
+<block name="body">
+	<div class="row">
+		<div class="col-lg-12">
+			<table id="table_id" class="cell-border">
+				<thead>
+					<tr>
+						<th></th>
+						<th>编号</th>
+						<th>角色名</th>
+						<th>状态</th>	
+						<th>备注</th>	
+						<th>操作</th>			
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($roles as $k => $v): ?>
+						<tr id="data{$v['id']}">
+							<td></td>
+							<td>{$v['id']}</td>
+							<td>{$v['name']}</td>
+							<td>{$v['status']}</td>
+							<td>{$v['remark']}</td>
+							<td>&nbsp;&nbsp;<a href=""><i class="icon icon-pencil"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href=""><i class="icon icon-remove menuDel"></i></a></td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</block>

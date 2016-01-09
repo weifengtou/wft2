@@ -1,0 +1,36 @@
+<ul class="nav nav-pills nav-stacked">
+	{:W('Admin/showAdminLeft',[$menusTree])}
+</ul>
+
+<script>
+	jQuery(document).ready(function($) {
+		$("li[role='presentation']").children('a').on('click', function(e) {
+			// e.preventDefault();
+			if($(this).attr("aria-expanded")=="true"){
+				$(this).children('i.data_down').removeClass('icon-chevron-down').addClass('icon-chevron-left');
+			}else{
+				$(this).children('i.data_down').removeClass('icon-chevron-left').addClass('icon-chevron-down');
+			}
+		});
+	});
+</script>
+
+<?php
+	$menu_pids = get_list_parents($menus,I('get.menu_id'));
+?>
+
+<?php foreach ($menu_pids as $k => $v): ?>
+	<script>
+		jQuery(document).ready(function($) {
+			var xid = "{$v['id']}";
+			$("li[menuid='"+xid+"']").children('a').trigger('click');
+		});
+	</script>
+<?php endforeach; ?>
+
+<script>
+	var menu_id = "{:I('get.menu_id')}";
+	jQuery(document).ready(function($) {
+		$("li[menuid='"+menu_id+"']").addClass('left_select');
+	});
+</script>

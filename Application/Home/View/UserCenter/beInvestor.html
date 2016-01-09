@@ -1,0 +1,57 @@
+<extend name="Base:layout" />
+
+<block name="head">
+	<link href="__HOME__/css/userCenter.css" rel="stylesheet" type="text/css">
+	<!-- <script src="__HOME__/js/be_investor.js"></script> -->
+	
+    <script>
+    function show_inv_reset () {
+        $(".investor").addClass("hidden");
+        $(".creat_hd_a").removeClass("wanshan_curerent");
+    }
+    jQuery(document).ready(function($) {
+        $("#inv_individual").on('click',function (e) {
+            show_inv_reset ();
+            $("#individual_investor").removeClass("hidden");
+            $(this).addClass("wanshan_curerent");
+        })
+        $("#inv_institutional").on('click',function (e) {
+            show_inv_reset ();
+            $("#institutional_investor").removeClass("hidden");
+            $(this).addClass("wanshan_curerent");
+        })
+        $("#inv_individual").trigger("click");
+    });
+    </script>
+</block>
+
+<block name="body">
+	<div class="container">
+        <div class="row">
+            <div class="span6 text-left">
+                <div class="use-font1">快速成为投资人</div>
+            </div>
+            <div class="span6 text-right">				
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="container">
+        <div class="creat_hd">
+            <div class="row">
+                <div id="inv_individual" class="span2 creat_hd_a">个人投资者</div>
+                <div id="inv_institutional" class="span2 creat_hd_a" style="margin-left:0">机构投资者</div>
+            </div>
+        </div>
+    </div>
+    <include file="UserCenter/includes:inv_institutional" />
+    
+
+    <include file="UserCenter/includes:inv_individual" />
+
+
+</block>
+
+
+
+

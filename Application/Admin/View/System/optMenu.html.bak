@@ -1,0 +1,118 @@
+<extend name="Base:layout_fluid" />
+
+<block name="head">
+	<script src="__STATIC__/jquery.form.js"></script>
+	<script>
+	jQuery(document).ready(function($) {
+		/*$("select[name='nav_id']").on('click', 'option', function(event) {
+			event.preventDefault();
+			$.post('{:U("selectMenus")}', {'nav_id':$(this).val()}, function(data, textStatus, xhr) {
+				$("select[name='pid']").html(data);
+			});
+		});
+		$("#optmenu").ajaxForm({
+			success:function(data){
+				data = jQuery.parseJSON(data);
+				if (data['status']=="error") {
+					alert(data['msg']);
+				}else{
+					location.href = data['url'];
+				}
+			}
+		});*/
+	});
+	</script>
+</block>
+
+<block name="body">
+<div class="row">
+	<div class="col-lg-12">
+		<form id="optmenu" class="form-horizontal" method="post" action="">
+			<div class="form-group">
+				<label for="nav_id" class="col-sm-2 control-label">频道id</label>
+				<div class="col-sm-10">
+					<select name="nav_id">
+						<?php foreach ($nav_menu_tree as $k => $v): ?>
+							<option value="{$v['id']}" <?php if ($v['id']==I('get.nav_id')): ?>
+								selected="selected"
+							<?php else: ?>
+								class="hidden"
+							<?php endif; ?>>{$v['title']}</option>
+						<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="pid" class="col-sm-2 control-label">父级菜单id</label>
+				<div class="col-sm-10">
+					<select name="pid">
+						<option value="0" <?php if(0==I('get.pid')): ?>
+							selected="selected"
+						<?php else: ?>
+							class="hidden"
+						<?php endif; ?>>0</option>
+						<?php foreach ($nav_menu_tree as $key => $value): ?>
+							<?php if($value['id']==I('get.nav_id')): ?>
+								<?php foreach ($value['menus'] as $k => $v): ?>
+									<option value="{$v['id']}" <?php if(I('get.pid')==$v['id']): ?>
+										selected="selected"
+									<?php else: ?>
+										class="hidden"
+									<?php endif; ?>>{$v['title']}</option>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						<?php endforeach; ?>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">标识</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="name"
+						placeholder="标识" value="{$menuInfo[0]['name']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="title" class="col-sm-2 control-label">标题</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="title"
+						placeholder="标题" value="{$menuInfo[0]['title']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="sort" class="col-sm-2 control-label">排序</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="sort"
+						placeholder="排序" value="{$menuInfo[0]['sort']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="icon" class="col-sm-2 control-label">显示图标</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="icon"
+						placeholder="显示图标" value="{$menuInfo[0]['icon']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="status" class="col-sm-2 control-label">状态</label>
+				<div class="col-sm-3">
+					<input type="text" class="form-control" name="status"
+						placeholder="状态" value="{$menuInfo[0]['status']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="remark" class="col-sm-2 control-label">备注</label>
+				<div class="col-sm-6">
+					<textarea type="text" class="form-control" name="remark"
+						placeholder="备注" rows="3">{$menuInfo[0]['remark']}</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary" name="submit" value="submit">确定</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</block>

@@ -1,0 +1,50 @@
+<!-- <ul class="nav nav-pills nav-stacked">
+    <li role="presentation">
+    	<a href="#xxx1" class="nav-header collapsed" data-toggle="collapse">
+    		<i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;用户管理
+    	</a>
+    	<ul id="xxx1" class="nav nav-list collapse secondmenu" style="height: 0px;">
+    		<li role="presentation">
+    			<a href="#x2" class="nav-header collapsed" data-toggle="collapse">
+    				&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-wrench"></i>&nbsp;&nbsp;成员管理
+    			</a>
+    			<ul id="x2" class="nav nav-list collapse secondmenu" style="height: 0px;">
+    				<li role="presentation">
+		    			<a href="">
+		    				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-wrench"></i>&nbsp;&nbsp;节点管理
+		    			</a>
+		    		</li>
+    			</ul>
+    		</li>
+    		<li role="presentation">
+    			<a href="">
+    				&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-wrench"></i>&nbsp;&nbsp;角色管理
+    			</a>
+    		</li>
+    		<li role="presentation">
+    			<a href="">
+    				&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-wrench"></i>&nbsp;&nbsp;节点管理
+    			</a>
+    		</li>
+    	</ul>
+    </li>
+</ul> -->
+<?php foreach ($menusTree as $k => $v): ?>
+	<li role="presentation" menuid="{$v['id']}">
+        <?php if ($v['_child']): ?>
+            <a href="#{:md5($v['name'])}" class="nav-header collapsed" data-toggle="collapse">
+            	<?php for($i=0;$i<$v['_node_sort'];$i++){echo "&nbsp;&nbsp;&nbsp;&nbsp;";} ?>
+                <i class="{$v['icon']}"></i>&nbsp;&nbsp;{$v['title']}
+                <i class="data_down icon icon-chevron-left pull-right"></i>
+            </a>
+            <ul id="{:md5($v['name'])}" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                {:W('Admin/showAdminLeft',[$v['_child']])}
+            </ul>
+        <?php else: ?>
+            <a href="{:U($v['name'],['menu_id'=>$v['id']])}">
+            <?php for($i=0;$i<$v['_node_sort'];$i++){echo "&nbsp;&nbsp;&nbsp;&nbsp;";} ?>
+                <i class="{$v['icon']}"></i>&nbsp;&nbsp{$v['title']}
+            </a>
+        <?php endif; ?>
+    </li>
+<?php endforeach; ?>

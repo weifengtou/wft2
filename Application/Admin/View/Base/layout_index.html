@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="__COMMON__/common_images/logo16.png">
+    
+    <!-- seo -->
+    <title><?php 
+    echo C('SEO_TITLE')?C('SEO_TITLE'):C('TITLE');
+    ?></title>
+    <meta name="KEYWORDS" content="<?php 
+    echo C('SEO_KEYWORDS')?C('SEO_KEYWORDS'):C('KEYWORDS');
+    ?>"><meta name="DESCRIPTION" content="<?php 
+    echo C('SEO_DESCRIPTION')?C('SEO_DESCRIPTION'):C('DESCRIPTION');
+    ?>" />
+
+    <!-- head -->
+    <include file="Public:head" />
+</head>
+<body>
+    <include file="Public:header" />
+	<block name="body"></block>
+    <div class="container-fluid">
+        <include file="Public:footer" />
+    </div>
+</body>
+</html>

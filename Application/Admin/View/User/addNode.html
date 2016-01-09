@@ -1,0 +1,86 @@
+<extend name="Base:layout_fluid" />
+
+<block name="head">
+	<script src="__STATIC__/jquery.form.js"></script>
+	<script>
+	jQuery(document).ready(function($) {
+		$("#addRole").ajaxForm({
+			success:function(data){
+				data = jQuery.parseJSON(data);
+				if (data["status"]=='error') {
+					alert(data['msg']);
+				}else{
+					location.href = "{:U('listNode',['menu_id'=>get_menu_id('listNode')])}" + "#data" + data['id'];
+				}
+			}
+		});
+	});
+	</script>
+</block>
+
+<block name="body">
+	<!-- {:_vp(time())} -->
+	<div class="row">
+		<div class="col-lg-12">
+			<form action="" id="addRole" class="form-horizontal" method="post">
+				<div class="form-group">
+					<label for="name" class="col-lg-2 control-label">父级点名<span style="color:red;">*</span></label>
+					<div class="col-lg-3">
+						<?php if (I("get.pid")): ?>
+							<input type="hidden" name="pid" value="{:I('get.pid')}">
+							<?php $x = M("AdminNode")->where("id=".I("get.pid"))->field("title")->find(); ?>
+							<input type="text" class="form-control" disabled="disabled" value="{$x['title']}">
+						<?php else: ?>
+							<select class="form-control" name="pid" id="">
+								<option value="0">无父级节点</option>
+								<?php foreach (M("AdminNode")->select() as $k=> $v): ?>
+									<option value="{$v['id']}">{$v['title']}</option>
+								<?php endforeach; ?>
+							</select>
+						<?php endif; ?>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="name" class="col-lg-2 control-label">节点名<span style="color:red;">*</span></label>
+					<div class="col-lg-3">
+						<input type="text" class="form-control" name="name"
+							placeholder="节点名">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="title" class="col-lg-2 control-label">节点标题<span style="color:red;">*</span></label>
+					<div class="col-lg-3">
+						<input type="text" class="form-control" name="title"
+							placeholder="节点标题">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="sort" class="col-lg-2 control-label">排序</label>
+					<div class="col-lg-3">
+						<input type="text" class="form-control" name="sort"
+							placeholder="sort" value="0">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="status" class="col-lg-2 control-label">状态</label>
+					<div class="col-lg-3">
+						<input type="text" class="form-control" name="status"
+							placeholder="status" value="1">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="remark" class="col-sm-2 control-label">备注</label>
+					<div class="col-sm-6">
+						<textarea type="text" class="form-control" name="remark"
+							placeholder="备注" rows="3"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-offset-2 col-lg-10">
+						<button type="submit" class="btn btn-primary" name="submit" value="submit">确定</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</block>

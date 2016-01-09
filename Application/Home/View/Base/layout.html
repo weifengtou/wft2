@@ -1,0 +1,37 @@
+<!-- common layout -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="viewport" id="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="__COMMON__/common_images/logo16.png">
+    
+    <!-- seo -->
+    <title><?php 
+    echo C('SEO_TITLE')?C('SEO_TITLE'):C('TITLE');
+    ?></title>
+    <meta name="KEYWORDS" content="<?php 
+    echo C('SEO_KEYWORDS')?C('SEO_KEYWORDS'):C('KEYWORDS');
+    ?>"><meta name="DESCRIPTION" content="<?php 
+    echo C('SEO_DESCRIPTION')?C('SEO_DESCRIPTION'):C('DESCRIPTION');
+    ?>" />
+
+    <!-- head -->
+    <include file="Public:head" />
+</head>
+<body class="bg-f7f7f7 body_font_family">
+
+    <!-- 页面公共头 -->
+	<include file="Public:header" />
+
+    <!-- 内容 -->
+	<include file="Public:body" />	
+
+    <!-- 页面公共底 -->
+	<include file="Public:footer" />
+
+</body>
+</html>

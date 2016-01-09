@@ -1,0 +1,24 @@
+<?php foreach ($nodeTree as $k => $v): ?>
+	<tr>
+		<td></td>
+		<td>{$v['id']}</td>
+		<td>
+			<?php for ($i=0; $i < $v['_node_sort']; $i++) { 
+	                echo "--&nbsp;&nbsp;--";
+	            } ?>
+			{$v['title']}
+		</td>
+		<td>{$v['name']}</td>
+		<td>{$v['sort']}</td>
+		<td>{$v['status']}</td>
+		<td>{$v['remark']}</td>
+		<td>
+			&nbsp;&nbsp;<a href="{:U('addNode',['menu_id'=>get_menu_id('addNode'),'pid'=>$v['id']])}"><i class="icon icon-plus"></i></a>
+			&nbsp;&nbsp;&nbsp;&nbsp;<a href=""><i class="icon icon-pencil"></i></a>
+			&nbsp;&nbsp;&nbsp;&nbsp;<a href=""><i class="icon icon-remove menuDel"></i></a>
+		</td>
+	</tr>
+	<?php if ($v['_child']): ?>
+		{:W("User/listNodeTree",[$v['_child']])}
+	<?php endif; ?>
+<?php endforeach; ?>

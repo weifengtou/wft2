@@ -1,0 +1,52 @@
+/*******表单左侧文字************/
+.creat_fonta{ font-weight:bold; line-height:30px}
+
+/*******表单右侧文字************/
+.creat_fontb{ color:#999; line-height:30px}
+
+/*project banner*
+.creat_fm_img{ width:190px; height:105px; border:#ccc solid 1px;}
+
+/****************滑动门样式**********************/
+.creat_hd{ height:65px; font-size:26px; font-weight:bold; line-height:65px; background:#a0251f; color:#fff}
+.creat_hd_a{ display:block; border-right:#fff 2px solid; text-align:center; cursor:pointer; width:200px;}
+.wanshan_curerent{ background:#b4342e;}
+
+
+
+
+/****************usercenter-left*****单用*****************/
+.tx_border{ border-radius:100%; border:#e1e4e9 solid 5px; margin-bottom:15px}
+.user_nav ul{ list-style:none;}
+.user_nav ul li{ height:50px; line-height:50px; font-size:16px; padding-left:30px; cursor:pointer;}
+.user_nav ul li:hover{background:url(../images/user/use_navbg.gif) 0 0 repeat-y; background-color:#fff; font-weight:600;}
+.user_nav ul li span.num{ float:right; margin-top:17px; display:inline-block; margin-right:20px; background:#f05666}
+
+
+/****************usercenter-right（首页）***********单用***********/
+.user_tz{ padding:8px 0px; height:25px; line-height:25px; font-size:16px; border-bottom:#f0f0f0 solid 1px;}
+.user_tz .icon-remove-sign{cursor:pointer;}
+.user_main{ padding:40px; background:#fff}
+.user_role{ margin-bottom:15px}
+.user_role p{ line-height:1.5; font-size:18px; color:#000;}
+.user_role p span{ font-size:14px; color:#666;}
+.user_role p span a{ color:#f05666}
+.user_indexxm a{ display:block; padding-top:85px; color:#000}
+.user_indexxm a:hover{ color:#f05666}
+.user_indexxm1 a{ background:url(../images/user/user_xm1.png) center 0 no-repeat}
+.user_indexxm1 a:hover{ background:url(../images/user/user_xm2.png) center 0 no-repeat}
+.user_indexxm2 a{ background:url(../images/user/user_xm3.png) center 0 no-repeat}
+.user_indexxm2 a:hover{ background:url(../images/user/user_xm4.png) center 0 no-repeat}
+.user_indexxm3 a{ background:url(../images/user/user_xm5.png) center 0 no-repeat}
+.user_indexxm3 a:hover{ background:url(../images/user/user_xm6.png) center 0 no-repeat}
+.user_indexxm4 a{ background:url(../images/user/user_xm7.png) center 0 no-repeat}
+.user_indexxm4 a:hover{ background:url(../images/user/user_xm8.png) center 0 no-repeat}
+
+/****************usercenter-right（我的项目/我的投资）***********单用***********/
+.myproject_nav ul{ height:50px; border-bottom:#e1e4e9 solid 3px; list-style:none; line-height:50px; position:relative;}
+.myproject_nav ul li a{ height:50px; line-height:50px; color:#666; margin:0; width:auto;}
+.myproject_nav ul li a:hover{ color:#f05666}
+.myproject_nav ul li:hover{ border-bottom:#f05666 solid 3px;}
+.myproject_nav .span2{ margin-left:0}
+.usercenter_active{ border-bottom:#f05666 solid 3px;}
+.usercenter_active a{color:#f05666}

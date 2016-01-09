@@ -1,0 +1,489 @@
+<extend name="Base:userCenterLayout" />
+
+<block name="head">
+
+<!-- 日历样式 -->
+<style>
+.date-picker-wp {
+	display: none;
+	position: absolute;
+	background: #f1f1f1;
+	left: 40px;
+	top: 40px;
+	border-top: 4px solid #3879d9;
+}
+
+.date-picker-wp table {
+	border: 1px solid #ddd;
+}
+
+.date-picker-wp td {
+	background: #fafafa;
+	width: 22px;
+	height: 18px;
+	border: 1px solid #ccc;
+	font-size: 12px;
+	text-align: center;
+}
+
+.date-picker-wp td.noborder {
+	border: none;
+	background: none;
+}
+
+.date-picker-wp td a {
+	color: #1c93c4;
+	text-decoration: none;
+}
+
+.strong {
+	font-weight: bold
+}
+
+.hand {
+	cursor: pointer;
+	color: #3879d9
+}
+</style>
+</block>
+
+<block name="body"> <!--推送通知 可关闭模块-->
+<div class="row-fluid bg-fafafa user_tz"
+	style="border-bottom: #f0f0f0 solid 1px">
+	<div class="span1 text-right">
+		<img src="__HOME__/images/user/use_tz.png">
+	</div>
+	<div class="span10">推送通知</div>
+
+	<!--关闭按钮-->
+	<div class="span1 text-left">
+		<button class="close" style="float: none">&times;</button>
+	</div>
+</div>
+
+
+<!--主体-->
+<div class="user_main">
+
+	<!--身份选择-->
+	<div class="row-fluid">
+
+		<!--身份/会员-->
+		<div class="span4">
+
+			<!--身份-->
+			<div class="row-fluid">
+				<div class="span11 offset1 user_role">
+					<p>
+						投资人<br /> <span>投资项目（<a href="#">20</a>）
+						</span>
+					</p>
+				</div>
+			</div>
+			<!--会员-->
+			<div class="row-fluid">
+				<div class="span11 offset1 user_role">
+					<p>
+						<span>申请成为<a href="#" style="color: #45b0e5">白金会员</a></span>
+					</p>
+				</div>
+			</div>
+		</div>
+
+
+		<!--身份/消息-->
+		<div class="span4">
+			<!--身份-->
+			<div class="row-fluid">
+				<div class="span6 offset3 user_role">
+					<p>
+						项目方<br /> <span>发布项目（<a href="#">{$pro_count}</a>）
+						</span>
+					</p>
+				</div>
+			</div>
+			<!--会员-->
+			<div class="row-fluid">
+				<div class="span6 user_role text-center">
+					<p>
+						<span>收到的评论：<a href="#">12</a></span>
+					</p>
+				</div>
+				<div class="span6 user_role text-center">
+					<p>
+						<span>收到的私信：<a href="#">35</a></span>
+					</p>
+				</div>
+			</div>
+		</div>
+
+
+		<!--登陆情况-->
+		<div class="span4">
+			<div class="row-fluid">
+				<div class="span10 offset2">
+
+					<!--登录时间-->
+					<div class="row-fluid">
+						<div class="span6 text_666" style="font-size: 14px;">
+							{$fors}</div>
+						<div class="span6 text_666 text-right" style="font-size: 14px;">
+							{$city}</div>
+					</div>
+
+					<!--此刻时间-->
+					<div class="row-fluid">
+						<div class="span8 text_666" style="font-size: 14px;">
+							{$year}年{$month}月{$day}日</div>
+						<div class="span4 text_666 text-right" style="font-size: 14px;">
+							{$hour}:{$min}:{$sec}</div>
+					</div>
+
+					<!--安全级别-->
+					<div class="row-fluid">
+						<div class="span6 text_666" style="font-size: 14px;">安全级别：</div>
+						<div class="span6 text_666 text-right" style="font-size: 14px;">
+							高级</div>
+					</div>
+
+					<!--安全进度条-->
+					<div class="row-fluid" style="height: 10px;">
+						<div class="span12 progress"
+							style="min-height: 10px; height: 10px">
+							<div class="bar bar-danger"
+								style="width: 60%; background: #f05666"></div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!--项目详情-->
+	<div class="row-fluid" style="margin-top:20px">
+
+		<!--项目-->
+		<div class="span8">
+			<div class="row-fluid">
+				<!--已投资项目-->
+				<div class="span3 text-center">
+					<div class="user_indexxm user_indexxm1">
+						<a href="#">66个投资项目</a>
+					</div>
+				</div>
+				<!--未完成的投资项目-->
+				<div class="span3 text-center">
+					<div class="user_indexxm user_indexxm2">
+						<a href="#">30个项目待投资</a>
+					</div>
+				</div>
+				<!--关注的项目-->
+				<div class="span3 text-center">
+					<div class="user_indexxm user_indexxm3">
+						<a href="#">105个关注项目</a>
+					</div>
+				</div>
+				<!--关注的投资人-->
+				<div class="span3 text-center">
+					<div class="user_indexxm user_indexxm4">
+						<a href="#">20个关注投资人</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--签到与日历-->
+		<div class="span4">
+			<div class="row-fluid">
+				<div class="span10 offset2 text-center text_666">
+					<!-- <button class="btn btn-large btn-danger" type="button"
+						style="font-size: 16px; background: #f05666" id="signIn">签到，今日可获得{$score}积分
+					</button> -->
+					
+
+					<!--已签到后的样式开始-->
+					<button class="btn btn-large" type="button"
+						style="font-size: 16px; background: #e1e4e9" id="signIn; color:#666">已签到，今日获得{$score}积分
+					</button>
+					<!--已签到后的样式结束-->
+
+					<input type="hidden" value="{$score}" id="score">
+					<!-- <p style="padding-top: 6px">会员双倍获得积分</p> -->
+					<p style="padding-top: 15px">
+						<img style="padding-right: 5px" src="__HOME__/images/user/user_calendar.png">
+						<span class="text_666" id="sign_calendar">查看我的签到日历</span>
+					</p>
+				</div>
+			</div>
+			<script>
+			$(document).ready(function(){
+				$("#signIn").on("click",function(){
+					$score = $("#score").attr("value");
+					alert($score);
+					$.ajax({
+						type: "POST",
+						url : "{:U('signIn')}",
+						data:{"score":$score},
+						success:function(data){
+							alert(data);
+						}
+					})
+				})
+			})
+			</script>
+		</div>
+	</div>
+
+	<!--分隔线-->
+	<div class="row-fluid">
+		<div class="span12"
+			style="border-bottom: #e1e4e9 solid 1px; margin-bottom: 35px"></div>
+	</div>
+
+	<!--我的项目 标题-->
+	<div class="row-fluid">
+		<div class="span4">
+			<div class="row-fluid">
+				<div class="span11 offset1">
+					<p style="font-size: 16px; margin-bottom: 20px">我的项目</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<volist name="myProjects" id="vo"> <!--我的项目-->
+	<div>
+		<div class="row-fluid">
+
+			<div id="id1" class="myproject">
+				<!--项目图片-->
+				<div class="span3">
+					<div class="row-fluid">
+						<div class="span11 offset1">
+							<a href="#"><img src="{$vo.pro_banner}" class="img-polaroid"></a>
+						</div>
+					</div>
+				</div>
+
+				<!--项目信息-->
+				<div class="span6">
+					<div class="row-fluid">
+						<div class="span11 offset1">
+							<p>
+								<a href="#" style="font-size: 16px; color: #333">{$vo.pro_name}</a>
+							</p>
+							<p style="font-size: 12px" class="text_666">项目编号：XM201412101605</p>
+							<div class="row-fluid" style="margin-top: 5%">
+								<!--已完成-->
+								<div class="span3 text_666" style="line-height: 1.8">
+									<p>
+										已完成：<br /> <span style="color: #f05666">100</span>%
+									</p>
+								</div>
+
+								<!--融资总额-->
+								<div class="span4 text_666" style="line-height: 1.8">
+									<p>
+										融资总额：<br /> <span style="color: #f05666">4,000,000</span>万
+									</p>
+								</div>
+
+								<!--历时时间-->
+								<div class="span3 text_666" style="line-height: 1.8">
+									<p>
+										历时时间：<br /> <span style="color: #f05666">185</span>天
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--查看详情-->
+				<div class="span3" style="margin-top: 5%">
+					<p>
+						<a href="#"
+							style="display: block; height: 32px; padding: 0 20px; background: #f05666; color: #fff; line-height: 32px; width: 60px; text-align: center">查看详情</a>
+					</p>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<!--分隔线-->
+	<div class="row-fluid">
+		<div class="span12"
+			style="border-bottom: #e1e4e9 solid 1px; margin-bottom: 35px"></div>
+	</div>
+	</volist>
+
+
+
+
+</div>
+
+<a href="{:U('myProjects')}">我的项目</a> <a href="{:U('projectCreate')}">创建项目</a>
+<a href="{:U('beInvestor')}">成为投资人</a> 
+
+<script>
+	/* 日历  */
+	onload = function(){
+		new DatePicker('_DatePicker',{
+			aId : 'sign_calendar',
+			className : 'date-picker-wp',
+			seprator : ''
+		})
+	}
+	
+	var DatePicker = function() {
+		//返回对拥有指定 ID 的第一个对象的引用
+		var $ = function(i) {
+			return document.getElementById(i);
+		}
+		//onclick只能绑定一个事件;
+		//如果要绑定多个事件，在IE中可以使用attachEvent()方法，object.attachEvent(event,function);
+		//attachEvent()是微软的私有方法，火狐和其它浏览器不支持，但是它们都支持W3C标准的addEventListener()方法，
+		//element.addEventListener(type,listener,useCapture),type:事件类型、listener:function侦听到的事件处理函数、useCapture:Boolean(default=false);
+		var addEvent = function(o, e, f) {
+			//o:object对象，e:event事件类型，f:function方法 
+			o.addEventListener ? o.addEventListener(e, f, false) : o
+					.attachEvent('on' + e, function() {
+						f.call(o)
+					})
+		}
+		//日历显示距离边框位置 
+		//offsetTop  指 obj 距离上方或上层控件的位置，整型，单位像素
+		//offsetLeft 指obj 距离左方或上层控件的位置，整型，单位像素
+		var getPos = function(el) {
+			//pos:position
+			for ( var pos = {
+				x : 0,
+				y : 0
+			}; el; el = el.offsetParent) {
+				pos.x += el.offsetLeft;
+				pos.y += el.offsetTop;
+			}
+			return pos;
+		}
+		var init = function(n, config) {
+			window[n] = this;
+			//返回当天是一个星期中的第几天 ，0~6
+			Date.prototype._fd = function() {
+				var d = new Date(this);//当前时间 
+				d.setDate(1);//setDate(day)用于设置一个月的某一天,day:1~31
+				return d.getDay();//返回表示星期的某一天的数字,0~6
+			}
+			//返回当月有多少天 ,28~31
+			Date.prototype._fc = function() {
+				var d1 = new Date(this), d2 = new Date(this);
+				d1.setDate(1);
+				d2.setDate(1);
+				d2.setMonth(d2.getMonth() + 1);//getMonth()返回表示月份的数字 ，setMonth()用于设置月份
+				return (d2 - d1) / 86400000;//d2-d1获取一个月的毫秒 ，864000000ms 代表一天 
+			}
+			this.n = n;
+			this.config = config;
+			this.D = new Date;//当前时间 ，如：Wed Sep 23 2015 11:09:27 GMT+0800
+			this.el = $(config.aId);//定位标签元素 
+			this.el.title = this.n + 'DatePicker';//日历名 
+			this.update();
+			this.bind();
+		}
+		init.prototype = {
+				update : function(y, m) {
+					var con = [];
+					var week = [ 'Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa' ];
+					var D = this.D;//当前时间 
+					var _this = this;//日历对象
+					//年份、月份加减
+					var fn = function(a, b) {
+						return '<td title="' + _this.n
+								+ 'DatePicker" class="noborder hand" onclick="'
+								+ _this.n + '.update(' + a + ')">' + b + '</td>'
+					}; 
+					var _html = '<table cellpadding=0 cellspacing=2>';
+					y && D.setYear(D.getFullYear() + y);//setYear()用于设置年份 ，getFullYear()返回一个表示年份的 4 位数字
+					m && D.setMonth(D.getMonth() + m);
+					var year = D.getFullYear();//当前年份 
+					var month = D.getMonth() + 1;//当前月份 
+					var date = D.getDate();//当天的日期 
+					for ( var i = 0; i < week.length; i++)
+						con.push('<td title="'+this.n+'DatePicker" class="noborder">'+ week[i] + '</td>');
+					for ( var i = 0; i < D._fd(); i++)
+						con.push('<td title="'+this.n+'DatePicker" class="noborder"> </td>');
+					for ( var i = 0; i < D._fc(); i++)
+						con.push('<td class="hand" onclick="' + this.n + '.fillInput(' + year + ', ' + month + ', '+ (i + 1) + ')">' + (i + 1) + '</td>');
+					var toend = con.length % 7;//con，table中所有的td标签对 (最后一行的剩余不算)，
+					//计算最后一行有几个空格 
+					if (toend != 0)
+						for ( var i = 0; i < 7 - toend; i++)
+							con.push('<td class="noborder"> </td>');
+					_html += '<tr>'
+							+ fn("-1, null", "<<")
+							+ fn("null, -1", "<")
+							+ '<td title="'+this.n+'DatePicker" colspan=3 class="strong">'
+							+ year + '/' + month + '/' + date + '</td>'
+							+ fn("null, 1", ">") + fn("1, null", ">>") + '</tr>';
+					//判断table中是否换行
+					for ( var i = 0; i < con.length; i++)
+						_html += (i == 0 ? '<tr>' : i % 7 == 0 ? '</tr><tr>' : '')
+								+ con[i] + (i == con.length - 1 ? '</tr>' : '');
+					!!this.box ? this.box.innerHTML = _html : this.createBox(_html);
+				},
+				//显示到input框中的日期 
+				fillInput : function(y, m, d) {
+					var s = this.config.seprator || '/';
+					this.el.value = y + s + m + s + d;
+					this.box.style.display = 'none';
+				},
+				show : function() {
+					var s = this.box.style, is = this.mask.style;
+					s['left'] = is['left'] = getPos(this.el).x + 'px';
+					s['top'] = is['top'] = getPos(this.el).y + this.el.offsetHeight
+							+ 'px';
+					s['display'] = is['display'] = 'block';
+					is['width'] = this.box.offsetWidth - 2 + 'px';
+					is['height'] = this.box.offsetHeight - 2 + 'px';
+				},
+				hide : function() {
+					this.box.style.display = 'none';
+					this.mask.style.display = 'none';
+				},
+				bind : function() {
+					var _this = this;
+					addEvent(document, 'click', function(e) {
+						e = e || window.event;
+						var t = e.target || e.srcElement;//target事件属性返回事件的目标节点（触发该事件的节点），srcElement设置或获取触发事件的属性
+						if (t.title != _this.n + 'DatePicker') {
+							_this.hide()
+						} else {
+							_this.show()
+						}
+					})
+				},
+				//创建日历表 
+				createBox : function(html) {
+					var box = this.box = document.createElement('div');
+					var mask = this.mask = document.createElement('iframe');
+					box.className = this.config.className || 'datepicker';
+					//mask.src = 'javascript:false';
+					mask.frameBorder = 0;//iframe边框 
+					box.style.cssText = 'position:absolute;display:none;z-index:9999';
+					mask.style.cssText = 'position:absolute;display:none;z-index:9998';
+					box.title = this.n + 'DatePicker';
+					box.innerHTML = html;
+					document.body.appendChild(box);
+					document.body.appendChild(mask);
+					//alert(this.mask);
+					return box;
+				}
+			}
+			return init;
+		}();
+</script> 
+
+</block>

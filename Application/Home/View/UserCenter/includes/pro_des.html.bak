@@ -1,0 +1,107 @@
+
+
+<div id="pro_des" class="container pro_ohter_data hidden" style="border:#dcdcdc solid 1px; background:#fff; border-radius:5px; padding:70px 0 60px 0">
+    <div>
+        <!--项目详述-->
+        <div class="row">
+            <form action="{:U('optProjectDes')}" method="post">
+                <div class="span2 text-right creat_fonta">
+                    项目详述
+                </div>
+
+                <div class="span7">
+                    <div class="row-fluid">
+                        <div class="span11">
+                            <textarea name="pro_des" class="textatra_resize_none" style="width:100% !important" style="visibility:hidden;">{$projectDetail[0]['pro_des']}</textarea>
+                        </div>
+                    </div>    
+                </div>
+
+                <div class="span3">
+                    <div class="row-fluid">
+                        <div class="span11">
+                            <p id="creat_fontb_pro_banner" class="creat_fontb">
+                            您可以从以下几个方面来陈述您的项目
+                            <br>
+                            1.公司简介<br>
+                            2.为什么我们需要您的支持<br>
+                            3.我们所能带给您的回报
+                            4.我们的风险
+                            </p>
+                        </div>
+                        <div class="span1">
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="project_id" value="{$projectDetail[0]['project_id']}">
+            </form>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+        <!--线-->
+        <div class="row">
+            <div class="span1"></div>
+
+            <div class="span10" style="border-top:#cfcfcf 2px solid;"></div>
+
+            <div class="span1"></div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <div class="row">
+            <div class="span3"></div>
+
+            <div class="span3 text-right">
+                <a href="{:U('UserCenter/index')}"><div class="btn btn-large" alt="保存草稿，完善后提交" style="width:195px">保存草稿，完善后提交</div></a>
+            </div>
+
+            <div class="span3 text-left">
+                <div onclick="javascript:setProDes();" class="btn btn-large btn-danger" alt="取消" style="width:195px">保存并进入下一步</div>
+            </div>
+
+            <div class="span3"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function(){
+    KindEditor.ready(function(K) {
+    	//创建编辑器 ，初始化配置参数 
+        pro_des = K.create('textarea[name="pro_des"]', {
+        	//配置编辑器的工具栏，其中'/'表示换行，'|'表示分隔符 
+        	items : ['undo','redo','|',
+        	         'preview','print','templete','cut','copy','paste','|',
+        	         'justifyleft','justifycenter','justifyright','justifyfull','insertorderedlist','insertunorderedlist','selectall','|',
+        	         'fullscreen','/','formatblock','fontname','fontsize','|',
+        	         'forecolor','hilitecolor','bold','italic','underline','lineheight','removeformat','|',
+        	         'image','multiimage','flash','hr','emoticons','baidumap','pagebreak','link','unlink','anchor'],
+            allowFileManager : true, //true时显示浏览器远程服务器按钮 
+            autoHeightMode : true, //值为true，并引入autoheight.js插件时自动调整高度
+            afterCreate : function() {	//设置编辑器创建后执行的回调函数
+                this.loadPlugin('autoheight');
+            },
+            afterUpload : function(url) {	//上传文件后执行的回调函数 
+                var firstimageoption = '<option value="' + url + '">' + url + '</option>';
+                var selectoption = '<option value="' + url + '" selected="selected">' + url + '</option>';
+                $("#firstimage").append(firstimageoption);
+                $("#images").append(selectoption);
+            }
+        });
+    });
+})
+function setProDes () {
+    pro_des.sync(); 
+    $("#pro_des form").ajaxSubmit({
+        success:function (data) {
+            data = jQuery.parseJSON(data);
+            if (data["status"]=="error") {
+                alert(data["msg"]);
+            }else{
+                $("#项目团队").trigger("click");
+            }
+        }
+    });
+}
+</script>

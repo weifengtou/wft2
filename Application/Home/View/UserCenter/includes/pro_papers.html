@@ -1,0 +1,244 @@
+<div id="pro_papers" class="container pro_ohter_data hidden" style="border:#dcdcdc solid 1px; background:#fff; border-radius:5px; padding:70px 0 60px 0">
+<script>
+	jQuery(document).ready(function($) {
+		$("input:file").change(function (e) {
+			var self_form = $(this).parents("form");
+			self_form.ajaxSubmit({
+				success:function (data) {
+					data = jQuery.parseJSON(data);
+					if (data["status"]=="error") {
+						alert(data["msg"]);
+					}else{
+						self_form.find(".img_data_show").attr("src",data["src"]);
+						self_form.find(".img_data_show").removeClass("no_img_data_show");
+					}
+				}
+			});
+		});
+		$("#提交审核").click(function (e) {
+			if ($(".no_img_data_show").size()>0) {
+				alert("请完善图片资料");
+				return false;
+			}else{
+				var project_id = "{$projectDetail[0]['project_id']}";
+				$.post(
+					"{:U(proReview)}",
+					{"project_id":project_id},
+					function (data) {
+						data = jQuery.parseJSON(data);
+						alert(data["msg"])
+						if (data['status']=="success") {
+							location.href = "{:U('UserCenter/myProjects')}";
+						}
+					}
+				)
+			}
+		});
+	});
+</script>
+<?php $project_papers = $projectDetail[0]['project_papers']; ?>
+	<!--资料审核-->
+	<div>
+		
+		<!--身份证正面-->
+		<form enctype="multipart/form-data" action="{:U('reviewProPapers')}" method="post">
+			<div class="row">
+				<div class="span2 text-right creat_fonta">
+					身份证正面
+				</div>
+
+				<div class="span4">
+					<div class="row-fluid">
+						<div class="span10 text-center">
+							<div>
+								<?php if ($project_papers[0]['fornt_view']!==""): ?>
+									<img class="img_data_show" src="{$project_papers[0]['fornt_view']}">
+								<?php else: ?>
+									<img class="img_data_show no_img_data_show" src="__HOME__/images/project/shenhe01.gif">
+								<?php endif; ?>
+							</div>
+						</div>
+						<div class="span2">
+							<div class="upuploading">
+                                <input type="file" name="fornt_view_img">
+                            </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="span6">
+				</div>
+
+			</div>
+			<input type="hidden" name="project_id" value="{$projectDetail[0]['project_id']}">
+			<input type="hidden" name="fornt_view">
+		</form>
+
+
+	
+        <div style="padding:15px 0"></div>
+
+        <!--身份证反面-->
+		<form enctype="multipart/form-data" action="{:U('reviewProPapers')}" method="post">
+			<div class="row">
+				<div class="span2 text-right creat_fonta">
+					身份证反面
+				</div>
+
+				<div class="span4">
+					<div class="row-fluid">
+						<div class="span10 text-center">
+							<div>
+								<?php if ($project_papers[0]['reverse_view']!==""): ?>
+									<img class="img_data_show" src="{$project_papers[0]['reverse_view']}">
+								<?php else: ?>
+									<img class="img_data_show no_img_data_show" src="__HOME__/images/project/shenhe02.gif">
+								<?php endif; ?>
+							</div>
+						</div>
+						<div class="span2">
+							<div class="upuploading">
+                                <input type="file" name="reverse_view_img">
+                            </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="span6">
+				</div>
+
+			</div>
+			<input type="hidden" name="project_id" value="{$projectDetail[0]['project_id']}">
+			<input type="hidden" name="reverse_view">
+		</form>
+
+		<div style="padding:15px 0 15px 0"></div>
+
+		<!--法人征信报告-->
+		<form enctype="multipart/form-data" action="{:U('reviewProPapers')}" method="post">
+			<div class="row">
+				<div class="span2 text-right creat_fonta">
+					法人征信报告
+				</div>
+
+				<div class="span4">
+					<div class="row-fluid">
+						<div class="span7">
+							<?php if ($project_papers[0]['credit_report']!==""): ?>
+								<img class="img_data_show pull-right" src="{$project_papers[0]['credit_report']}">
+							<?php else: ?>
+								<img class="img_data_show pull-right no_img_data_show" src="__HOME__/images/project/shenhe03.gif">
+							<?php endif; ?>
+						</div>
+						<div class="span5">
+							<div class="upuploading">
+                                <input type="file" name="credit_report_img">
+                            </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="span6">
+				</div>
+
+			</div>
+			<input type="hidden" name="project_id" value="{$projectDetail[0]['project_id']}">
+			<input type="hidden" name="credit_report">
+		</form>
+
+		<div style="padding:15px 0 15px 0"></div>
+
+		<!--营业执照副本-->
+		<form enctype="multipart/form-data" action="{:U('reviewProPapers')}" method="post">
+			<div class="row">
+				<div class="span2 text-right creat_fonta">
+					营业执照副本
+				</div>
+
+				<div class="span4">
+					<div class="row-fluid">
+						<div class="span7">
+							<?php if ($project_papers[0]['license']!==""): ?>
+								<img class="img_data_show pull-right" src="{$project_papers[0]['license']}">
+							<?php else: ?>
+								<img class="img_data_show pull-right no_img_data_show" src="__HOME__/images/project/shenhe04.gif">
+							<?php endif; ?>
+						</div>
+						<div class="span5">
+							<div class="upuploading">
+                                <input type="file" name="license_img">
+                            </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="span6">
+				</div>
+
+			</div>
+			<input type="hidden" name="project_id" value="{$projectDetail[0]['project_id']}">
+			<input type="hidden" name="license">
+		</form>
+		<div style="padding:15px 0 15px 0"></div>
+
+		<!--税务登记证副本-->
+		<form enctype="multipart/form-data" action="{:U('reviewProPapers')}" method="post">
+			<div class="row">
+				<div class="span2 text-right creat_fonta">
+					税务登记证副本<br>
+					加盖公章
+				</div>
+
+				<div class="span4">
+					<div class="row-fluid">
+						<div class="span7">
+							<?php if ($project_papers[0]['tax_certificate']!==""): ?>
+								<img class="img_data_show pull-right" src="{$project_papers[0]['tax_certificate']}">
+							<?php else: ?>
+								<img class="img_data_show pull-right no_img_data_show" src="__HOME__/images/project/shenhe05.gif">
+							<?php endif; ?>
+						</div>
+						<div class="span5">
+							<div class="upuploading">
+                                <input type="file" name="tax_certificate_img">
+                            </div>
+						</div>
+					</div>
+				</div>
+
+				<div class="span6">
+				</div>
+
+			</div>
+			<input type="hidden" name="project_id" value="{$projectDetail[0]['project_id']}">
+			<input type="hidden" name="tax_certificate">
+		</form>
+
+		<div style="padding:15px 0 15px 0"></div>
+		<!--线-->
+		<div class="row">
+			<div class="span1"></div>
+
+			<div class="span10" style="border-top:#cfcfcf 2px solid;"></div>
+
+			<div class="span1"></div>
+		</div>
+
+		<div style="padding:15px 0 15px 0"></div>
+
+		<div class="row">
+			<div class="span3"></div>
+
+			<div class="span3 text-right">
+				<a href="{:U('UserCenter/index')}"><div class="btn btn-large" alt="保存为草稿，待完善后提交" style="width:195px">保存草稿，完善后提交</div></a>
+			</div>
+
+			<div class="span3 text-left">
+				<div id="提交审核" class="btn btn-large btn-danger" alt="提交审核" style="width:195px">提交审核</div>
+			</div>
+
+			<div class="span3"></div>
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,716 @@
+<extend name="Base:layout" />
+
+<block name="head">
+    <link href="__HOME__/css/userCenter.css" rel="stylesheet" type="text/css">   
+    <script src="__STATIC__/jquery.form.js"></script>
+    <!-- jcrop -->
+    <link href="__STATIC__/Jcrop-0.9.12/css/jquery.Jcrop.min.css" rel="stylesheet">
+    <script src="__STATIC__/Jcrop-0.9.12/js/jquery.Jcrop.min.js"></script>
+    <script src="__STATIC__/Jcrop-0.9.12/js/jquery.color.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            //防止返回
+            window.history.forward(1);
+            // 浏览图片事件
+            $("#pro_banner").on('click', function (e) {
+                $("input[name=pro_banner]").trigger('click');
+            });
+            //提交项目事件
+            $("#project_submit").on('click', function (e) {
+                if ($("input#access_agreement").get(0).checked===true) {}else{
+                    alert("请先阅读并同意《微风投网站协议》");
+                    return false;
+                }
+                form_info_reset();
+                $("#form2").ajaxSubmit({
+                    beforeSubmit: function () {
+                        /*图片非空验证*/
+                        if($(".no_pro_banner").size()>0){
+                            $("#creat_fontb_pro_banner").addClass('verify_error').text('请上传图片');
+                            location.href = "#creat_fontb_pro_banner";
+                            return false;
+                        }
+                        /*图片非空验证*/
+                        /*项目名验证*/
+                        if($("input[name=pro_name]").val()===''){
+                            $("#creat_fontb_pro_name").addClass('verify_error').text('请输入项目名');
+                            location.href = "#creat_fontb_pro_name";
+                            return false;
+                        }else if($("input[name=pro_name]").val().length<2){
+                            $("#creat_fontb_pro_name").addClass('verify_error').text('项目名长度不小于2');
+                            location.href = "#creat_fontb_pro_name";
+                            return false;
+                        }else if($("input[name=pro_name]").val().length>30){
+                            $("#creat_fontb_pro_name").addClass('verify_error').text('项目名长度不大于30');
+                            location.href = "#creat_fontb_pro_name";
+                            return false;
+                        }else if(special_character_rule.test($("input[name=pro_name]").val())===true){
+                            $("#creat_fontb_pro_name").addClass('verify_error').text('项目名不能有特殊字符');
+                            location.href = "#creat_fontb_pro_name";
+                            return false;
+                        }
+                        /*项目名验证*/
+                        /*项目定位验证*/
+                        if($("input[name=pro_resume]").val()===''){
+                            $("#creat_fontb_pro_resume").addClass('verify_error').text('请输入项目定位');
+                            location.href = "#creat_fontb_pro_resume";
+                            return false;
+                        }else if($("input[name=pro_resume]").val().length<20){
+                            $("#creat_fontb_pro_resume").addClass('verify_error').text('项目定位长度不小于20');
+                            location.href = "#creat_fontb_pro_resume";
+                            return false;
+                        }else if($("input[name=pro_resume]").val().length>100){
+                            $("#creat_fontb_pro_resume").addClass('verify_error').text('项目定位长度不大于100');
+                            location.href = "#creat_fontb_pro_resume";
+                            return false;
+                        }else if(special_character_rule.test($("input[name=pro_resume]").val())===true){
+                            $("#creat_fontb_pro_resume").addClass('verify_error').text('项目定位不能有特殊字符');
+                            location.href = "#creat_fontb_pro_resume";
+                            return false;
+                        }
+                        /*项目定位验证*/
+                        /*所属行业*/
+                        if ($("select[name='full_trade']").val()==="0") {
+                        	$("#creat_fontb_trade").addClass("verify_error").text('请选择完整行业');
+                        	location.href = "#creat_fontb_trade";
+                        	return false;
+                        }
+                        /*所属行业*/
+                        /*所在地区*/
+                        if ($("select[name='county']").val()==="0") {
+                        	$("#creat_fontb_area").addClass("verify_error").text('请选择完整地区');
+                        	location.href = "#creat_fontb_area";
+                        	return false;
+                        }
+                        /*所在地区*/
+                        /*项目视频*
+                        if ($("input[name='pro_vedio']").val()==='') {
+                        	$("#creat_fontb_pro_vedio").addClass("verify_error").text("视频地址不能为空");
+                        	return false;
+                        }
+                        /*项目视频*/
+                        /*融资金额*/
+                        if ($("input[name='total_fin']").val()==='') {
+                        	$("#creat_fontb_fin").addClass('verify_error').text("总融资金额不能为空");
+                        	return false;
+                        }
+                        if (!number_rule.test($("input[name='total_fin']").val())) {
+                        	$("#creat_fontb_fin").addClass('verify_error').text("总融资金额应为数字");
+                        	return false;
+                        }
+                        if (parseInt($("input[name='total_fin']").val())<1||parseInt($("input[name='total_fin']").val()>1000)) {
+                        	$("#creat_fontb_fin").addClass('verify_error').text("总融资金额必须在1万到1000万间");
+                        	return false;
+                        }
+                        if (!number_rule.test($("input[name='single_fin']").val())) {
+                        	$("#creat_fontb_fin").addClass('verify_error').text("单笔融资金额应为数字");
+                        	return false;
+                        }
+                        if ($("input[name='single_fin']").val()==='') {
+                        	$("#creat_fontb_fin").addClass('verify_error').text("单笔融资金额不能为空");
+                        	return false;
+                        }
+                        if (parseInt($("input[name='single_fin']").val())<1||parseInt($("input[name='single_fin']").val()>1000)) {
+                        	$("#creat_fontb_fin").addClass('verify_error').text("单笔资金额必须在1万到1000万间");
+                        	return false;
+                        }
+                        if (parseInt($("input[name='total_fin']").val())<parseInt($("input[name='single_fin']").val())) {
+                        	$("#creat_fontb_fin").addClass('verify_error').text("单笔资金额不能大于总融资金额");
+                        	return false;
+                        }
+                        /*融资金额*/
+                        /*资金用途*/
+                        if ($("textarea[name='funds_use']").val()==='') {
+                        	$("#creat_fontb_funds_use").addClass('verify_error').text("资金用途不能为空");
+                        	return false;
+                        }
+                        if($("textarea[name='funds_use']").val().length<20){
+                            $("#creat_fontb_funds_use").addClass('verify_error').text('资金用途长度不小于20');
+                            location.href = "#creat_fontb_funds_use";
+                            return false;
+                        }
+                        if($("textarea[name='funds_use']").val().length>100){
+                            $("#creat_fontb_funds_use").addClass('verify_error').text('资金用途长度不大于100');
+                            location.href = "#creat_fontb_funds_use";
+                            return false;
+                        }
+                        if(special_character_rule.test($("textarea[name='funds_use']").val())===true){
+                            $("#creat_fontb_funds_use").addClass('verify_error').text('资金用途不能有特殊字符');
+                            location.href = "#creat_fontb_funds_use";
+                            return false;
+                        }
+                        /*资金用途*/
+                        /*联系人姓名*/
+                        if($("input[name='link_name']").val()===''){
+                            $("#creat_fontb_link").addClass('verify_error').text('请输入项目名');
+                            location.href = "#creat_fontb_link";
+                            return false;
+                        }else if($("input[name='link_name']").val().length<2){
+                            $("#creat_fontb_link").addClass('verify_error').text('项目名长度不小于2');
+                            location.href = "#creat_fontb_link";
+                            return false;
+                        }else if($("input[name='link_name']").val().length>30){
+                            $("#creat_fontb_link").addClass('verify_error').text('项目名长度不大于30');
+                            location.href = "#creat_fontb_link";
+                            return false;
+                        }else if(special_character_rule.test($("input[name='link_name']").val())===true){
+                            $("#creat_fontb_link").addClass('verify_error').text('项目名不能有特殊字符');
+                            location.href = "#creat_fontb_link";
+                            return false;
+                        }
+                        /*联系人姓名*/
+                        /*联系人电话*/
+                        if ($("input[name='link_tel']").val()==='') {
+                        	$("#creat_fontb_link_tel").addClass('verify_error').text("联系人电话不能为空");
+                        	return false;
+                        }
+                        if (!telphone_rule.test($("input[name='link_tel']").val())) {
+                        	$("#creat_fontb_link_tel").addClass('verify_error').text("联系人电话格式不正确");
+                        	return false;
+                        }
+                        /*联系人电话*/
+                    },
+                    success: function (data) {
+                        if (number_rule.test(data)) {
+                        	location.href = "__URL__/proCreateSuccess/project_id/"+data;
+                        }else{
+                        	alert(data);
+                        }
+                    }
+                });
+            });
+            //显示提交的图片
+            $("#form1").find("input:file").change(function (e) {
+               $("#form1").ajaxSubmit({
+                    success:function (data) {
+                        data = jQuery.parseJSON(data);
+                        if (data['status']=="error") {
+                            $("#creat_fontb_pro_banner").addClass('verify_error').text('上传图片有误，建议上传小于2MB以内，格式建议JPG/PNG/JPGE，图片比例为190x105');
+                            $("#creat_fontb_pro_banner").addClass('verify_error').text(data['msg']);
+                            return false;
+                        }else{
+                            var src = data['src'];
+                            var picRealWidth, picRealHeight;
+                            $("<img/>") // 在内存中创建一个img标记
+                            .attr("src", src)
+                            .load(function () {
+                                picRealWidth = this.width;
+                                picRealHeight = this.height;
+                            });
+                            var x = src.replace(/\./g, 'this')
+                            x = x.replace(/\//g, '_');
+                            $("#createProBanner").html("<img id='"+x+"' class='creat_fm_img no_pro_banner' src='"+src+"' style='max-height:200px;'>")
+                            $("input[name='banner']").val(src);
+                            var img = $("#" + x);
+                            img.Jcrop({
+                                setSelect: [0, 0, 190, 105], //初始化选中区域 
+                                minSelect: [19, 19],
+                                bgOpacity: 0.1,
+                                "aspectRatio": 190 / 105,
+                                onChange: function (c) {
+                                    var scale = picRealWidth / img.width();
+                                    $(".txtX1").val(c.x * scale); //得到选中区域左上角横坐标 
+                                    $(".txtY1").val(c.y * scale); //得到选中区域左上角纵坐标 
+                                    $(".txtX2").val(c.x2 * scale); //得到选中区域右下角横坐标 
+                                    $(".txtY2").val(c.y2 * scale); //得到选中区域右下角纵坐标 
+                                    $(".txtWidth").val(c.w * scale); //得到选中区域的宽度 
+                                    $(".txtHeight").val(c.h * scale); //得到选中区域的高度
+                                    $("#cutOk").removeClass("hidden");
+                                },
+                                onSelect: function () {
+                                    // 
+                                },
+                                onRelease: function () {
+                                    alert("截取不能小于20x20");
+                                }
+                            });
+                        }
+                    }
+                });
+            })
+            $("#cutOk").on('click',function (e) {
+                $("#cutProBanner").ajaxSubmit({
+                    success:function (data) {
+                        data = jQuery.parseJSON(data);
+                        src = data['src'];
+                        $("#createProBanner").html("<img class='creat_fm_img' src='"+src+"'>")
+                        $("#cutOk").addClass("hidden");
+                    }
+                }) 
+            });
+        });
+        //重置表单说明
+        function form_info_reset() {
+            $("#creat_fontb_pro_banner").removeClass('verify_error').text("项目封面图（项目LOGO、商标标示图、或者精良制作宣传图）建议上传小于2MB以内，格式建议JPG/PNG/JPGE，图片比例为190x105");
+            $("#creat_fontb_pro_name").removeClass('verify_error').text("填写项目简称，如：微风投、支付宝，字数最多为20字");
+            $("#creat_fontb_pro_resume").removeClass("verify_error").text('建议将项目的主要适用人群、主要功能描述出来');
+            $("#creat_fontb_pro_stage").removeClass("verify_error").text('');
+            $("#creat_fontb_trade").removeClass("verify_error").text('');
+            $("#creat_fontb_area").removeClass("verify_error").text('');
+            $("#creat_fontb_pro_vedio").removeClass("verify_error").text('上传项目宣传视频，让投资者全方位了解项目详情');
+            $("#creat_fontb_fin").removeClass("verify_error").text('');
+            $("#creat_fontb_funds_use").removeClass("verify_error").text('');
+            $("#creat_fontb_privacy").removeClass("verify_error").text('');
+            $("#creat_fontb_link_name").removeClass("verify_error").text('');
+            $("#creat_fontb_link_tel").removeClass("verify_error").text('');
+        }
+    </script>
+</block>
+
+<block name="body">
+    <div class="container">
+        <div class="row">
+            <div class="span6 text-left">
+                <div class="use-font1">快速创建项目</div>
+            </div>
+            <div class="span6 text-right">				
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="container" style="border:#dcdcdc solid 1px; background:#fff; border-radius:5px; padding:70px 0 60px 0">
+        <form id="form1" action="{:U('proBannerUpload')}" enctype="multipart/form-data" method="post" >
+            <!--项目封面图-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    项目封面图
+                </div>
+                <div class="span5">
+                    <div class="row-fluid" style="min-height:107px">
+                        <div class="span8">
+                            <div id="createProBanner">
+                                <?php if (!empty($projectDetail[0]['pro_banner'])&&file_exists($projectDetail[0]['pro_banner'])): ?>
+                                <img class="creat_fm_img" src="{$projectDetail[0]['pro_banner']}">
+                                <?php else: ?>
+                                <img id="no_pro_banner" class="creat_fm_img no_pro_banner" src="__HOME__/images/project/fm.gif">
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="span4 on_bottom">
+                            <div class="on_bottom">
+                                <div class="upuploading">
+                                    <input type="file" name="pro_banner">
+                                </div>
+                                <div class="btn hidden btn-info" id="cutOk" style="margin-top:5px;">确认上传</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span5">
+                    <div class="row-fluid">
+                        <div class="span11">
+                            <p id="creat_fontb_pro_banner" class="creat_fontb">项目封面图（项目LOGO、商标标示图、或者精良制作宣传图）建议上传小于2MB以内，格式建议JPG/PNG/JPGE，图片比例为190x105</p>
+                        </div>
+                        <div class="span1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form id="cutProBanner" action="{:U('cutProBanner')}" method="post">
+            <input type="hidden" name="banner">
+            <input type="hidden" class="txtX1" name="x1" />
+            <input type="hidden" class="txtY1" name="y1" />
+            <input type="hidden" class="txtX2" name="x2" />
+            <input type="hidden" class="txtY2" name="y2" />
+            <input type="hidden" class="txtWidth" name="w" />
+            <input type="hidden" class="txtHeight" name="h" />
+        </form>
+
+        <hr>
+        <form id="form2" action="" method="post">
+            <!--项目名称-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    项目名称
+                </div>
+
+                <div class="span5">
+                    <div class="row-fluid">
+                        <input name="pro_name" class="span11 focused" type="text" value="{$projectDetail[0]['pro_name']}" placeholder="好的项目名字是成功的第一部哦">
+                    </div>
+                </div>
+                <div class="span5">
+                    <div class="row-fluid">
+                        <div class="span11">
+                            <p id="creat_fontb_pro_name" class="creat_fontb">填写项目简称，如：微风投、支付宝，字数最多为20字</p>
+                        </div>
+                        <div class="span1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--一句话描述-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    项目定位
+                </div>
+
+                <div class="span5">
+                    <div class="row-fluid">
+                        <input name="pro_resume" class="span11 focused" type="text" value="{$projectDetail[0]['pro_resume']}" placeholder="请用一句话描述项目的定位">
+                    </div>
+                </div>
+                <div class="span5">
+                    <div class="row-fluid">
+                        <div class="span11">
+                            <p id="creat_fontb_pro_resume" class="creat_fontb">建议将项目的主要适用人群、主要功能描述出来</p>
+                        </div>
+                        <div class="span1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--所处阶段-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    所处阶段
+                </div>
+
+                <div class="span5">
+                    <div class="row-fluid">
+                    	<?php foreach (M('BaseStage')->select() as $k => $v): ?>
+                    		<label class="span3 radio inline">
+	                            <input type="radio" value="{$v['stage_id']}" name="pro_stage">{$v['stage_name']}		
+	                        </label>
+                    	<?php endforeach; ?>
+                    	<script>
+                    	//默认值
+                    	var stage_name = "{$projectDetail[0]['pro_stage']}";
+                    	if (stage_name&&stage_name!=="0") {
+                    		$("input[name='pro_stage'][value='"+stage_name+"']").trigger('click');
+                    	}else{
+                    		$("input[name='pro_stage']").first().trigger('click');
+                    	};
+                    	</script>
+                    </div>
+                </div>
+                <div id="creat_fontb_pro_stage" class="span5">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--所处行业-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    所属行业
+                </div>
+
+                <div class="span5">
+                    <div class="row-fluid">
+                        <select name="father_trade" class="span5">
+                            <option value='0'>未选择</option>
+                            <?php foreach (M('BaseTrade')->where('trade_pid=0')->select() as $k => $v): ?>
+                            	<option value="{$v['trade_id']}">{$v['trade_name']}</option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <select name="full_trade" class="span5">
+                            <option value='0'>未选择</option>
+                        </select>
+                        <script>
+                        jQuery(document).ready(function($) {
+                            $("select[name='father_trade']").change(function () {
+                                if($(this).val()!=='0'){
+                                    $("select[name='full_trade']").attr("disabled",null);
+                                    $.post(
+                                        "{:U('getTrades')}",
+                                        {'trade_pid':$(this).val()},
+                                        function (data) {
+                                            $("select[name='full_trade']>option[value='0']").trigger('click');
+                                            $("select[name='full_trade']").html(data);
+                                        }
+                                    );
+                                }else{
+                                    $("select[name='full_trade']").get(0).selectedIndex=0;
+                                    $("select[name='full_trade']").attr("disabled","disabled");
+                                }
+                            });
+                            $("select[name='father_trade']").on('click',"option",'',function (e) {
+                                if($(this).val()!=='0'){
+                                    $("select[name='full_trade']").attr("disabled",null);
+                                }else{
+                                    $("select[name='full_trade']").get(0).selectedIndex=0;
+                                    $("select[name='full_trade']").attr("disabled","disabled");
+                                }
+                            });
+                        	var father_trade = "0";
+                        	$("select[name='father_trade']").children("option[value='"+father_trade+"']").trigger('click');
+                        });
+                        </script>
+                    </div>
+                </div>
+                <div id="creat_fontb_trade" class="span5">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--所处地区-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    所在地区
+                </div>
+
+                <div class="span5">
+                    <div class="row-fluid">
+                        <select name="province" class="span4">
+                            <option value='0'>未选择</option>
+                            <?php foreach (M('BaseArea')->where('area_pid=0')->select() as $k => $v): ?>
+                            	<option value="{$v['area_id']}">{$v['area_name']}</option>
+                            <?php endforeach; ?>
+                        </select>
+
+                        <select name="city" class="span4">
+                            <option value='0'>未选择</option>
+                        </select>
+
+                        <select name="county" class="span4">
+                            <option value='0'>未选择</option>
+                        </select>
+                        <script>
+                        jQuery(document).ready(function($) {
+                            $("select[name='province']").change(function (e) {
+                               if ($(this).val()!=='0') {
+                                    $("select[name='city']").attr("disabled",null);
+                                    $.post(
+                                        "{:U('getAreas')}",
+                                        {'area_pid':$(this).val()},
+                                        function (data) {
+                                            $("select[name='city']").children("option[value='0']").trigger('click');
+                                            $("select[name='city']").html(data);
+                                        }
+                                    );
+                                }else{
+                                    $("select[name='city']").children("option[value='0']").trigger('click');
+                                    $("select[name='city']").get(0).selectedIndex=0;
+                                    $("select[name='city']").attr("disabled","disabled");
+                                }
+                            })
+                            $("select[name='city']").change(function (e) {
+                                if ($(this).val()!=='0') {
+                                    $("select[name='county']").attr("disabled",null);
+                                    $.post(
+                                        "{:U('getAreas')}",
+                                        {'area_pid':$(this).val()},
+                                        function (data) {
+                                            $("select[name='county']").children("option[value='0']").trigger('click');
+                                            $("select[name='county']").html(data);
+                                        }
+                                    );
+                                }else{
+                                    $("select[name='county']").get(0).selectedIndex=0;
+                                    $("select[name='county']").attr("disabled","disabled");
+                                }
+                            });
+                        	$("select[name='province']").children("option").on('click','',function (e) {
+                        		if ($(this).val()!=='0') {
+                        			$("select[name='city']").attr("disabled",null);
+                        		}else{
+                                    $("select[name='city']").children("option[value='0']").trigger('click');
+                                    $("select[name='city']").get(0).selectedIndex=0;
+                                    $("select[name='city']").attr("disabled","disabled");
+                                }
+                        	});
+                        	$("select[name='city']").on('click',"option",'',function (e) {
+                        		if ($(this).val()!=='0') {
+                        			$("select[name='county']").attr("disabled",null);
+                        		}else{
+                                    $("select[name='county']").get(0).selectedIndex=0;
+                                    $("select[name='county']").attr("disabled","disabled");
+                                }
+                        	});
+                        	var province = "0";
+                        	$("select[name='province']").children("option[value='"+province+"']").trigger('click');
+                        });
+                        </script>
+                    </div>
+                </div>
+                <div id="creat_fontb_area" class="span5">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--视频-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    视频地址
+                </div>
+
+                <div class="span5">
+                    <div class="row-fluid">
+                        <div class="row-fluid">
+                            <input name="pro_vedio" class="span11 focused" type="text" placeholder="请输入视频链接网址">
+                        </div>
+                    </div>
+                </div>
+                <div class="span5">
+                    <p id="creat_fontb_pro_vedio" class="creat_fontb">上传项目宣传视频，让投资者全方位了解项目详情</p>
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--金额-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    预融资金额
+                </div>
+
+                <div class="span6">
+                    <div class="row-fluid">
+                        <div class="span2">
+                            <input name="total_fin" class="input-mini" type="text">
+                        </div>
+                        <div class="span1 creat_fonta">万元</div>
+
+                        <div class="span4 creat_fonta text-right">单笔最低投资金额</div>
+                        <div class="span2">
+                            <input name="single_fin" class="input-mini" type="text">
+                        </div>
+                        <div class="span1 creat_fonta">万元</div>
+                    </div>
+                </div>
+
+                <div id="creat_fontb_fin" class="span4">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--资金用途-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    资金用途
+                </div>
+
+                <div class="span5">
+                    <div class="row-fluid">
+                        <div class="span11">
+                            <textarea name="funds_use" class="textatra_resize_none" style="width:100% !important"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="creat_fontb_funds_use" class="span5">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--隐私设置-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    隐私设置
+                </div>
+
+                <div class="span5">
+                    <div class="row-fluid">
+
+                        <?php foreach (M('BasePrivacy')->select() as $k => $v): ?>
+                    		<label class="span5 radio inline">
+	                            <input type="radio" value="{$v['privacy_id']}" name="privacy">{$v['privacy_name']}		
+	                        </label>
+                    	<?php endforeach; ?>
+                    	<script>
+                    	//默认值
+                    	var privacy = "{$projectDetail[0]['privacy']}";
+                    	if (privacy&&privacy!=="0") {
+                    		$("input[name='privacy'][value='"+privacy+"']").trigger('click');
+                    	}else{
+                    		$("input[name='privacy']").first().trigger('click');
+                    	};
+                    	</script>
+                    </div>
+                </div>
+                <div id="creat_fontb_privacy" class="span5">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--姓名-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    联系人姓名
+                </div>
+
+                <div class="span5">
+                    <div class="row-fluid">
+                        <div class="row-fluid">
+                            <input name="link_name" class="span11 focused" type="text" placeholder="请输入项目联系人姓名">
+                        </div>
+                    </div>
+                </div>
+                <div id="creat_fontb_link_name" class="span5">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--电话-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    联系人电话
+                </div>
+
+                <div class="span5">
+                    <div class="row-fluid">
+                        <div class="row-fluid">
+                            <input name="link_tel" class="span11 focused" type="text" placeholder="请输入项目联系人电话">
+                        </div>
+                    </div>
+                </div>
+                <div id="creat_fontb_link_tel" class="span5">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--线-->
+            <div class="row">
+                <div class="span1">
+                </div>
+
+                <div class="span10" style="border-top:#cfcfcf 2px solid;">
+                </div>
+
+                <div class="span1">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--协议-->
+            <div class="row">
+                <div class="span4">
+                </div>
+
+                <div class="span4">
+                    <label class="checkbox">
+                        <input id="access_agreement" type="checkbox">
+                        我已阅读并同意
+                        <a href="#" style="color:#da251c">《微风投网站协议》</a>
+                    </label>
+                    <div style="padding:15px 0 15px 0"></div>
+                    <div id="project_submit" class="btn btn-danger user_found_ana" alt="创建项目">创建项目</div>
+                </div>
+
+                <div class="span4">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 0px 0"></div>
+        </form>
+    </div>
+
+
+</block>

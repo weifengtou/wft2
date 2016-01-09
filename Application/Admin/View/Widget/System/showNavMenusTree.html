@@ -1,0 +1,33 @@
+<?php foreach ($menusTree as $k => $v): ?>
+    <tr dataid="{$v['id']}" id="nav{$v['nav_id']}menu{$v['id']}">
+        <td>{$v['id']}</td>
+        <td>
+            <?php for ($i=0; $i < $v['_node_sort']; $i++) { 
+                echo "--&nbsp;&nbsp;--";
+            } ?>
+            {$v['title']}
+        </td>
+        <td>{$v['name']}</td>
+        <td>{$v['sort']}</td>
+        <td><i class="{$v['icon']}"></i> {$v['icon']}</td>
+        <td>{$v['status']}</td>
+        <td>{$v['remark']}</td>
+        <td>
+            <a href="{:U('addMenu',['nav_id'=>$v['nav_id'],'pid'=>$v['id'],'menu_id'=>I('get.menu_id')])}"><i class="icon icon-plus"></i></a>
+            <?php if ($v['fasten']==0): ?>
+                <?php if ($v['_child']): ?>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="icon icon-remove menuDel" style='color:#ccc'></i>
+                <?php else: ?>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<a href=""><i class="icon icon-remove menuDel"></i></a>
+                <?php endif; ?>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<a href="{:U('editMenu',['nav_id'=>$v['nav_id'],'pid'=>$v['pid'],'menu_id'=>I('get.menu_id'),'optmenu'=>$v['id']])}"><i class="icon icon-pencil"></i></a>
+            <?php else: ?>
+            	&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon icon-remove menuDel" style='color:#ccc'></i>
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="icon icon-pencil" style='color:#ccc'></i>
+            <?php endif; ?>
+        </td>
+    </tr>
+    <?php if ($v['_child']): ?>
+        {:W('System/showNavMenusTree',[$v['_child']])}
+    <?php endif; ?>
+<?php endforeach; ?>

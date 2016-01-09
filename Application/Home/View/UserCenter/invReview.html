@@ -1,0 +1,227 @@
+<extend name="Base:layout" />
+
+<block name="head">
+	<link href="__HOME__/css/userCenter.css" rel="stylesheet" type="text/css">
+    <script src="__STATIC__/jquery.form.js"></script>
+    <!-- jcrop -->
+    <link href="__STATIC__/Jcrop-0.9.12/css/jquery.Jcrop.min.css" rel="stylesheet">
+    <script src="__STATIC__/Jcrop-0.9.12/js/jquery.Jcrop.min.js"></script>
+    <script src="__STATIC__/Jcrop-0.9.12/js/jquery.color.js"></script>
+    <script>
+    jQuery(document).ready(function($) {
+        $("input[name='invFront']").change(function (e) {
+            $(this).parents("form").ajaxSubmit({
+                success:function (data) {
+                    data = jQuery.parseJSON(data);
+                    if (data['status']=="error") {
+                        $("#warn_inv_paper").addClass('verify_error').text('上传图片有误，建议上传小于2MB以内，格式建议JPG/PNG/JPGE，图片比例为190x105');
+                        $("#warn_inv_paper").addClass('verify_error').text(data['msg']);
+                        return false;
+                    } else {
+                        var src = data['src'];
+                        $("#createInvFront").html("<img src='"+src+"' style='max-height:200px;'>")
+                        $("input[name='inv_paper']").val(src);
+                    }
+                }
+            })
+        });
+    });
+    </script>
+</block>
+
+<block name="body">
+	<div class="container">
+        <div class="row">
+            <div class="span6 text-left">
+                <div class="use-font1">认证微风投投资人</div>
+            </div>
+            <div class="span6 text-right">				
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="container" style="border:#dcdcdc solid 1px; background:#fff; border-radius:5px; padding:70px 0 60px 0">
+    	<form name="inv_approve_form" method="post" action="{:U('UserCenter/inv_approve')}">
+
+    		<!--投资人真实姓名-->
+    		<div class="row">
+	            <div class="span2 text-right creat_fonta">
+	                真实姓名
+	            </div>
+
+	            <div class="span5">
+	                <div class="row-fluid">
+	                    <input name="inv_true_name" class="span11 focused" type="text" placeholder="请输入投资人真实姓名">
+	                </div>
+	            </div>
+	            <div class="span5">
+	                <div class="row-fluid">
+	                    <div class="span11">
+	                        <p class="creat_fontb" id="warn_inv_true_name">如××或 ××·××（最多20个汉字），机构投资人填写法人姓名</p>
+	                    </div>
+	                    <div class="span1">
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div style="padding:15px 0 15px 0"></div>
+
+	        <!--证件类型(暂不做)-->
+	        <!-- <div class="row">
+	            <div class="span2 text-right creat_fonta">
+	                证件类型
+	            </div>
+
+	            <div class="span5">
+	                <div class="row-fluid">
+	                    <label class="span3 radio inline">
+	                        <input name="inv_paper_type" type="radio" value="1">身份证        
+	                    </label>
+
+	                    <label class="span3 radio inline">
+	                        <input name="inv_paper_type" type="radio" value="2">护照      
+	                    </label>
+	                </div>
+	            </div>
+	            <div class="span5">
+	            	<div class="row-fluid">
+	                    <div class="span11">
+	                        <p class="creat_fontb" id="warn_inv_paper">所提交的身份证明文件必须与所选择的证件类型相符</p>
+	                    </div>
+	                    <div class="span1">
+	                    </div>
+	                </div>
+	            </div>
+	        </div> -->
+
+	        <div style="padding:15px 0 15px 0"></div>
+
+	        <!--证件号码-->
+    		<div class="row">
+	            <div class="span2 text-right creat_fonta">
+	                身份证件号
+	            </div>
+
+	            <div class="span5">
+	                <div class="row-fluid">
+	                    <input name="inv_paper_num" class="span11 focused" type="text" placeholder="请输入证件号码">
+	                </div>
+	            </div>
+	            <div class="span5">
+	                <div class="row-fluid">
+	                    <div class="span11">
+	                        <p class="creat_fontb" id="warn_inv_paper_num">所填写的证件号码必须准确无误</p>
+	                    </div>
+	                    <div class="span1">
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div style="padding:15px 0 15px 0"></div>
+
+        <input type="hidden" name="inv_paper">
+    	</form>
+
+		<!--证件照-->
+    	<form enctype="multipart/form-data" action="{:U('upInvFrontImg')}" method="post">
+			<!--项目封面图-->
+            <div class="row">
+                <div class="span2 text-right creat_fonta">
+                    手持证件正面照
+                </div>
+                <div class="span5">
+                    <div class="row-fluid" style="height:107px">
+                        <div class="span8">
+                            <div id="createInvFront">
+                                <img class="no_invFront" src="__HOME__/images/project/fm.gif">
+                            </div>
+                        </div>
+                        <div class="span4">
+                            <div class="upuploading">
+                                <input type="file" name="invFront">
+                            </div>
+                            <div class="btn hidden" id="cutOk">确认上传</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span5">
+                    <div class="row-fluid">
+                        <div class="span11">
+                            <p id="warn_inv_paper" class="creat_fontb">请使用二代身份证<br />
+照片须免冠，手持证件必须看清证件号码且证件完整<br />
+照片必须是原始照片，不得使用任何软件进行修改</p>
+                        </div>
+                        <div class="span1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <!--线-->
+            <div class="row">
+                <div class="span1">
+                </div>
+
+                <div class="span10" style="border-top:#cfcfcf 2px solid;">
+                </div>
+
+                <div class="span1">
+                </div>
+            </div>
+
+            <div style="padding:15px 0 15px 0"></div>
+
+            <div class="row">
+                <div class="span4">
+                </div>
+
+                <div class="span4">
+                    <div id="inv_approve" class="btn btn-danger user_found_ana">提交审核</div>
+                </div>
+
+                <div class="span4">
+                </div>
+            </div>
+
+    	</form>
+    </div>
+    <script>
+	$(document).ready(function(){
+		$("#inv_approve").on('click',function(){
+			$.post("{:U('UserCenter/inv_approve')}",
+					{true_name:$("input[name='inv_true_name']").val(),paper_num:$("input[name='inv_paper_num']").val(),paper:$("input[name='inv_paper']").val()},
+					function(data){
+						if(data == -1){
+							//$("#warn_inv_true_name").html("<font color='red'>请正确填写真实姓名！</font>");
+							$("#warn_inv_true_name").html("<font style='color:red;'>请正确填写真实姓名！</font>");
+							location.href = "#warn_inv_true_name";
+						}else if(data == -2){
+							$("#warn_inv_paper_num").html("<font style='color:red;'>请正确填写身份证号！</font>");
+							location.href = "#warn_inv_paper_num";
+							$("#warn_inv_true_name").html("如××或 ××·××（最多20个汉字），机构投资人填写法人姓名");
+						}else if(data == -3){
+							$("#warn_inv_paper").html("<font style='color:red;'>请上传认证照片！</font>");
+							location.href = "#warn_inv_paper";
+							$("#warn_inv_true_name").html("如××或 ××·××（最多20个汉字），机构投资人填写法人姓名");
+							$("#warn_inv_paper_num").html("所填写的证件号码必须准确无误");
+						}else if(data == 1){
+							location.href = "{:U('index')}";
+						}
+					}
+			)
+		})
+	});
+
+	//页面刷新（所有表单置空）
+	window.onload=function() {
+        document.forms[0].reset();
+    }
+	
+	</script>
+</block>
+

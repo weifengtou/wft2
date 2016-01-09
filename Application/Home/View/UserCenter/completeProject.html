@@ -1,0 +1,59 @@
+<extend name="Base:layout" />
+
+<block name="head">
+	<link href="__HOME__/css/userCenter.css" rel="stylesheet" type="text/css">
+	<script src="__STATIC__/jquery.form.js"></script>
+	<!-- jcrop -->
+	<link href="__STATIC__/Jcrop-0.9.12/css/jquery.Jcrop.min.css" rel="stylesheet">
+	<script src="__STATIC__/Jcrop-0.9.12/js/jquery.Jcrop.min.js"></script>
+	<script src="__STATIC__/Jcrop-0.9.12/js/jquery.color.js"></script>
+	<script>
+	function show_pro_reset () {
+		$(".pro_ohter_data").addClass('hidden');
+		$(".creat_hd_a").removeClass("wanshan_curerent");
+	}
+	jQuery(document).ready(function($) {
+		$("#项目详述").on('click',function(e){
+			show_pro_reset();
+			$("#pro_des").removeClass('hidden');
+			$("#项目详述").addClass("wanshan_curerent");
+		});
+		$("#项目团队").on('click',function (e) {
+			show_pro_reset();
+			$("#pro_member").removeClass('hidden');
+			$("#项目团队").addClass("wanshan_curerent");
+		});
+		$("#审核资料").on('click',function (e) {
+			show_pro_reset();
+			$("#pro_papers").removeClass('hidden');
+			$("#审核资料").addClass("wanshan_curerent");
+		});
+		show_pro_reset();
+		$("#项目详述").trigger('click');
+	});
+	</script>
+</block>
+
+<block name="body">
+	<div class="container">
+		<div class="use-font1">
+			完善项目{$projectDetail[0]['pro_name']}资料
+		</div>
+	</div>
+	<div class="container">
+		<div class="creat_hd">
+			<div class="row">
+				<div id="项目详述" class="span2 creat_hd_a">项目详述</div>
+				<div id="项目团队" class="span2 creat_hd_a" style="margin-left:0">项目团队</div> 
+				<div id="审核资料" class="span2 creat_hd_a" style="margin-left:0">审核资料</div>
+				<div class="span6"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 项目详述 -->
+	<include file = "UserCenter/includes:pro_des" />
+	<!-- 项目团队 -->
+	<include file = "UserCenter/includes:pro_member" />
+	<!-- 项目审核 -->
+	<include file = "UserCenter/includes:pro_papers" />
+</block>

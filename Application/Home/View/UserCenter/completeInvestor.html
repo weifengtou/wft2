@@ -1,0 +1,48 @@
+<extend name="Base:layout" />
+
+<block name="head">
+	<link href="__HOME__/css/user.css" rel="stylesheet" type="text/css">
+</block>
+
+
+<block name="body">
+	<div class="container">
+		<div class="use-font1">
+			你已成功成为微风投投资人<a href="">{$projectDetail[0]['pro_name']}</a>
+		</div>
+	</div>
+
+	<div class="container" style="border:#dcdcdc solid 1px; background:#fff; border-radius:5px; padding:70px 0 60px 0">
+		<div>
+			<h3 class="text-center" style="font-size:26px; color:#333">创建成为投资人，为加快微风投认证，您可以提供更多资料</h3>
+		</div>
+
+		<div class="row">
+			<div class="span3"></div>
+			<div class="span6 text-center" style="border-top:#cfcfcf 2px solid; padding-top:40px">
+				<div class="row-fluid">
+					<div class="span6">
+						<a href="{:U('index')}"><div class="btn btn-large" style="width:210px" alt="返回会员中心">返回会员中心</div></a>
+					</div>
+					<div class="span6">
+						<a href="{:U('invReview')}"><div class="btn btn-danger btn-large" style="width:210px" alt="提供更多资料">提供更多资料</div></a>
+					</div>
+				</div>
+			</div>
+			<div class="span3"></div>
+		</div>
+
+		<div style="padding:35px 0 35px 0"></div>
+
+		<!--线-->
+		<div class="row">
+			<div class="span1"></div>
+			<div class="span10 text-center" style="border-top:#cfcfcf 2px solid;">
+				<p style="padding:25px 0 15px 0; font-size:26px">关注微风投微信，获取最新创投咨询</p>
+				<p style="padding:35px 0 0px 0;"><img src="__HOME__/images/project/zixun.gif"></p>
+			</div>
+			<div class="span1"></div>
+		</div>
+
+	</div>
+</block>

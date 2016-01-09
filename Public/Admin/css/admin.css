@@ -1,0 +1,13 @@
+#admin_body{
+	background:#fff;
+}
+#admin_left{
+	background:#0C9;
+	overflow: auto;
+}
+.left_select{
+	background:#0f0;
+}
+.page-header{
+	margin-top:10px;
+}

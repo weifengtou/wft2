@@ -1,0 +1,9 @@
+<extend name="Base:layout_fluid" />
+
+<block name="body">
+	<?php 
+		$menus = M('AdminMenu')->where()->field(['id','pid','title'])->select();
+		$menus = list_to_tree($menus);
+		_vp(get_tree_node_sort($menus));
+	?>
+</block>

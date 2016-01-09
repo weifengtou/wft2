@@ -1,0 +1,119 @@
+<extend name="Base:layout" />
+
+<block name="head">
+	<script src="__STATIC__/jquery.form.js"></script>
+	<link href="//cdn.bootcss.com/jquery-jcrop/0.9.12/css/jquery.Jcrop.min.css" rel="stylesheet">
+	<script src="//cdn.bootcss.com/jquery-jcrop/0.9.12/js/jquery.Jcrop.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-jcrop/0.9.12/js/jquery.color.min.js"></script>
+
+	<script>
+		jQuery(document).ready(function($) {
+			$("input[name='image']").change(function (e) {
+				$("#ok").attr("disabled","disabled");
+				$("#img").ajaxSubmit({
+					success:function (data) {
+						var x = data.replace(/./g,'this')
+						x = x.replace(/\//g,'_')
+						$("#test2").html("<img id='"+x+"' src='"+data+"'>");
+						var img = $("#"+x); //获取img元素
+						var picRealWidth, picRealHeight;
+						$("<img/>") // 在内存中创建一个img标记
+						    .attr("src", $(img).attr("src"))
+						    .load(function() {
+						        picRealWidth = this.width;
+						        picRealHeight = this.height;
+						    });
+						$("input[name='img_url']").val(data);
+						img.Jcrop({
+							// setSelect:[0,0,200,200], //初始化选中区域 
+							minSelect:[99,99],
+							bgOpacity:0.1,
+							"aspectRatio":1/1,
+							onChange:function (c) {
+								var scale = picRealWidth/img.width();
+								$("#txtX1").val(c.x*scale); //得到选中区域左上角横坐标 
+								$("#txtY1").val(c.y*scale); //得到选中区域左上角纵坐标 
+								$("#txtX2").val(c.x2*scale); //得到选中区域右下角横坐标 
+								$("#txtY2").val(c.y2*scale); //得到选中区域右下角纵坐标 
+								$("#txtWidth").val(c.w*scale); //得到选中区域的宽度 
+								$("#txtHeight").val(c.h*scale); //得到选中区域的高度
+							},
+							onSelect:function(){
+								$("#ok").attr("disabled",null);
+							},
+							onRelease:function () {
+								$("#ok").attr("disabled","disabled");
+								alert("截取不能小于100x100");
+							}
+						});
+					}
+				});
+			});
+			$("#ok").on("click",function (e) {
+				if ($(this).attr("disabled")=="disabled") {return false}else{
+					$("#data").ajaxSubmit({
+						beforeSubmit:function (e) {
+							// body...
+						},
+						success:function (data) {
+							$("#data")[0].reset()
+							$("#test2").html("<img src='"+data+"'>");
+						}
+					})
+				}
+			})
+			$("#ie7").Jcrop({
+				// setSelect:[0,0,200,200], //初始化选中区域 
+				minSelect:[99,99],
+				bgOpacity:0.1,
+				"aspectRatio":1/1,
+				onChange:function (c) {
+					//
+				},
+				onSelect:function(){
+					$("#ok").attr("disabled",null);
+				},
+				onRelease:function () {
+					$("#ok").attr("disabled","disabled");
+					alert("截取不能小于100x100");
+				}
+			});
+		});
+	</script>
+</block>
+
+<block name="body">
+	<div class="container">
+		<img id="ie7" src="./Uploads/wodrow/user_104/project/8/mem_pictures/55bf1aa74ba96.jpg" alt="">
+	</div>
+	<div class="container">
+		<form id="img" action="{:U('test6upimg')}" enctype="multipart/form-data" method="post">
+			<img id="test1" src="" alt="">
+			<input name="image" size="30" type="file" />
+		</form>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div id="test2" class="span8"></div>
+			<div id="test3" class="span4">
+				<form id="data" action="{:U('test6data')}" method="post">
+					<input type="hidden" name="img_url">
+					<label>x1</label>
+					<input type="text" id="txtX1" name="x1" />
+					<label>y1</label>
+					<input type="text" id="txtY1" name="y1" />
+					<label>x2</label>
+					<input type="text" id="txtX2" name="x2" />
+					<label>y2</label>
+					<input type="text" id="txtY2" name="y2" />
+					<label>width</label>
+					<input type="text" id="txtWidth" name="w" />
+					<label>height</label>
+					<input type="text" id="txtHeight" name="h" />
+					<br>
+					<div id="ok" class="btn" disabled="disabled">确认</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</block>

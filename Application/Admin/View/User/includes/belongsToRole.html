@@ -1,0 +1,32 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-offset-1 col-lg-10">
+			<table class="table table-bordered table-condensed table-hover reset_0">
+				<tbody>
+					<?php if ($info['to_roles']):$i=1; ?>
+						<?php foreach ($info['to_roles'] as $k => $v): ?>
+							<tr class="blt_role" id="blt_role{$v['id']}">
+								<td>
+									{$i++}
+								</td>
+								<td>
+									{$v['name']}
+								</td>
+								<td>
+									{$v['remark']}
+								</td>
+								<td>
+									<a class="cursor_pointer del_blt_role">删除所属角色</a>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					<?php else: ?>
+					<?php endif; ?>
+					<tr>
+						<td colspan="4"><a href=""><center>添加所属角色</center></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

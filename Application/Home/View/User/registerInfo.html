@@ -1,0 +1,68 @@
+<extend name="Base:layout" />
+
+<block name="head">
+	<link href="__HOME__/css/user.css" rel="stylesheet" type="text/css">
+	<!-- IE9以及IE9以下版本可识别 span4文字不换行 -->
+	<!--[if lt IE 9]>
+		<script>
+		jQuery(document).ready(function($) {
+			$("#span_center_text_left").css({"width":"400px", "margin-left":"-5px"})
+		});
+		</script>
+	<![endif]-->
+</block>
+
+<block name="body">
+	<div class="container">
+		<div class="use-font1">
+			创建微风投账号成功
+		</div>
+	</div>
+
+	<div class="container" style="border:#dcdcdc solid 1px; background:#fff; border-radius:5px; padding:70px 0 60px 0">
+		<div>
+			<h3 class="text-center" style="font-size:26px; color:#333">恭喜您，成功创建微风投账号！</h3>
+		</div>
+		<div class="row">
+			<div class="span3"></div>
+			<div class="span6 text-center" style="border-top:#cfcfcf 2px solid; padding-top:10px">
+				一封激活邮件已发往{$userDetail[0]['email']}，您需要点击邮件中的确认链接来完成注册
+			</div>
+			<div class="span3"></div>
+		</div>
+
+		<div style="padding:15px 0 25px 0"></div>
+
+		<!--按钮-->
+		<div class="row">
+			<div class="span3"></div>
+			<div class="span6 text-center">
+				<a href="<?php echo R('Home/Home/getEmailUrls',['email'=>$userDetail[0]['email']]); ?>" target="_blank"><div class="btn btn-danger user_found_ana" alt="立即注册">查看邮件并激活</div></a>
+			</div>
+			<div class="span3"></div>
+		</div>
+
+		<div style="padding:25px 0 25px 0"></div>
+
+		<!--线-->
+		<div class="row">
+			<div class="span1"></div>
+			<div class="span10 text-center" style="border-top:#cfcfcf 2px solid;">
+				<p class="text_red" style="padding:25px 0 15px 0">没有收到邮件怎么办？</p>
+			</div>
+			<div class="span1"></div>
+		</div>
+
+		<div class="row">
+			<div class="span4"></div>
+			<div id="span_center_text_left" class="span4 text-left">
+				<p>1.检查以上邮箱填写是否有误，如填写错误，<a href="{:U('register')}" style="color:#da251c">请重新注册</a></p>
+				<p>2.查看是否在垃圾邮件、广告邮件目录里</p>
+				<p>3.稍等几分钟，如还未收到激活邮件，<a href="{:U('reSendEmailCode',['user_id'=>$userDetail[0][user_id]])}" style="color:#da251c">点此重新发送</a></p>
+			</div>
+			<div class="span4"></div>
+		</div>
+		
+
+	</div>
+</block>

@@ -1,0 +1,294 @@
+<!--团队头像-->
+<form id="form_picture_{$selId}" action="{:U('UserCenter/addMemPicture',['project_id'=>
+      $projectDetail[0]['project_id']])}" enctype="multipart/form-data" method="post">
+    <div class="row">
+        <div class="span2 text-right creat_fonta">添加头像</div>
+
+        <div class="span5">
+            <div class="row-fluid">
+                <div class="span8">
+                    <div class="mem_pic_img">
+                        <?php if ($memInfo['mem_picture']): ?>
+                        <img class="mem_picture_img" src="{$memInfo['mem_picture']}" alt="团队头像">
+                        <?php else: ?>
+                        <img class="no_mem_picture mem_picture_img" src="__HOME__/images/project/logg.gif" alt="团队头像">
+                        <?php endif; ?></div>
+                </div>
+                <div class="span4 on_bottom">
+                    <div class="on_bottom">
+                        <div class="upuploading">
+                            <input type="file" name="mem_picture_img" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <div class="row-fluid">
+                <div class="span11">
+                    <p class="creat_fontb creat_fontb_mem_picture_add">
+                        请上传本人真实头像
+                        <br>图片大小为200x200像素，支持jpg/gif/jpeg</p>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<div style="padding:15px 0 15px 0"></div>
+<form id="form_member_id{$selId}" action="{:U('UserCenter/optProjectMember',['project_id'=>
+      $projectDetail[0]['project_id']])}" method="post">
+    <div>
+        <!--姓名-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">添加姓名</div>
+
+            <div class="span5">
+                <div class="row-fluid">
+                    <input name="mem_name" class="span11 focused" type="text" value="{$memInfo['mem_name']}" placeholder="请输入成员姓名"></div>
+            </div>
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <p class="creat_fontb creat_fontb_mem_name">请填写团队成员的真实名字，2-20字</p>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--职位-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">添加职位</div>
+
+            <div class="span5">
+                <div class="row-fluid">
+                    <input name="mem_pos" class="span11 focused" type="text" value="{$memInfo['mem_pos']}" placeholder="请输入成员职位"></div>
+            </div>
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <p class="creat_fontb creat_fontb_mem_pos">请填写团队成员担当的职位，2-20字</p>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--选择角色-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">选择角色</div>
+            <div class="span5">
+                <div class="row-fluid">
+                    <?php foreach (M('BaseProMemRole')->
+                    select() as $k => $value): ?>
+                    <label class="span5 radio inline">
+                        <?php if ($memInfo['mem_role']==$value['role_id']): ?>
+                        <input type="radio" value="{$value['role_id']}" name="mem_role" checked="checked">{$value['role_name']}
+                        <?php else: ?>
+                        <input type="radio" value="{$value['role_id']}" name="mem_role" >{$value['role_name']}
+                        <?php endif; ?>
+                    </label>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <p class="creat_fontb creat_fontb_mem_role"></p>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--个人简介-->
+        <div class="row">
+            <div class="span2 text-right creat_fonta">个人简介</div>
+
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <textarea name="mem_intro" class="textatra_resize_none" style="width:100% !important">{$memInfo['mem_intro']}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="span5">
+                <div class="row-fluid">
+                    <div class="span11">
+                        <p class="creat_fontb creat_fontb_mem_intro">请填写成员的个人简介，字数在10到2000之间</p>
+                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding:15px 0 15px 0"></div>
+
+        <!--添加-->
+        <div class="row">
+            <div class="span4"></div>
+            <div class="span4">
+                <div class="row-fluid">
+                    <div class="span6 text-right">
+                        <div class="btn btn-info form_btn" style="width:60px">保存</div>
+                    </div>
+                    <div class="span6 text-left">
+                        <?php if ($selId=="new"): ?>
+                        <div onclick="javascript:form_reset();" class="btn" style="width:60px">重置</div>
+                        <?php else: ?>
+                        <div onclick="javascript:form_back();" class="btn" style="width:60px">取消</div>
+                        <?php endif; ?></div>
+                </div>
+            </div>
+            <div class="span4"></div>
+        </div>
+    </div>
+    <?php if ($selId!='new'): ?>
+    <input type="hidden" name="mem_id" value="{$selId}">
+    <?php endif; ?>
+    <input type="hidden" name="project_id" value="{$projectDetail[0]['project_id']}">
+    <input type="hidden" name="mem_picture" value="{$memInfo['mem_picture']}">
+    <input type="hidden" name="old_img_url" value="{$memInfo['mem_picture']}">
+    <input type="hidden" class="txtX1" name="x1" />
+    <input type="hidden" class="txtY1" name="y1" />
+    <input type="hidden" class="txtX2" name="x2" />
+    <input type="hidden" class="txtY2" name="y2" />
+    <input type="hidden" class="txtWidth" name="w" />
+    <input type="hidden" class="txtHeight" name="h" />
+</form>
+<script>
+//添加团队成员图片
+    $(document).on('change', '#form_picture_{$selId} input:file', function (e) {
+        $("#form_picture_" + "{$selId}").ajaxSubmit({
+            beforeSubmit: function (e) {
+                // test();
+            },
+            success: function (data) {
+                data = jQuery.parseJSON(data);
+                if (data['status'] == "error") {
+                    $("#form_picture_" + "{$selId}").find(".creat_fontb_mem_picture_add").addClass('verify_error').text(data['msg']);
+                    return false;
+                } else {
+                    var src = data['src'];
+                    var picRealWidth, picRealHeight;
+                    $("<img/>") // 在内存中创建一个img标记
+                            .attr("src", src)
+                            .load(function () {
+                                picRealWidth = this.width;
+                                picRealHeight = this.height;
+                            });
+                    var x = src.replace(/\./g, 'this')
+                    x = x.replace(/\//g, '_')
+                    form_prompt_reset();
+                    $("#form_member_id" + "{$selId}").find("input[name='mem_picture']").val(src);
+                    $("#form_picture_" + "{$selId}").find(".mem_pic_img").html("<img id='" + x + "' class='mem_picture_img' src='" + src + "' />");
+                    var img = $("#" + x);
+                    img.Jcrop({
+                        setSelect: [0, 0, 200, 200], //初始化选中区域 
+                        minSelect: [19, 19],
+                        bgOpacity: 0.1,
+                        "aspectRatio": 1 / 1,
+                        onChange: function (c) {
+                            var scale = picRealWidth / img.width();
+                            $("#form_member_id" + "{$selId}").find(".txtX1").val(c.x * scale); //得到选中区域左上角横坐标 
+                            $("#form_member_id" + "{$selId}").find(".txtY1").val(c.y * scale); //得到选中区域左上角纵坐标 
+                            $("#form_member_id" + "{$selId}").find(".txtX2").val(c.x2 * scale); //得到选中区域右下角横坐标 
+                            $("#form_member_id" + "{$selId}").find(".txtY2").val(c.y2 * scale); //得到选中区域右下角纵坐标 
+                            $("#form_member_id" + "{$selId}").find(".txtWidth").val(c.w * scale); //得到选中区域的宽度 
+                            $("#form_member_id" + "{$selId}").find(".txtHeight").val(c.h * scale); //得到选中区域的高度
+                        },
+                        onSelect: function () {
+                            // alert(picRealWidth)
+                        },
+                        onRelease: function () {
+                            alert("截取不能小于20x20");
+                        }
+                    });
+                }
+            }
+        });
+    })
+//添加团队成员
+    $(document).on('click', '#form_member_id{$selId} .form_btn', function (e) {
+        form_prompt_reset();
+        $("#form_member_id" + "{$selId}").ajaxSubmit({
+            beforeSubmit: function (e) {
+                /*成员图片验证*/
+                if ($("#form_picture_" + "{$selId}").find(".no_mem_picture").size() > 0) {
+                    $("#form_picture_" + "{$selId}").find(".creat_fontb_mem_picture_add").addClass('verify_error').text('未上传图片，建议上传小于2MB以内，格式建议JPG/PNG/JPGE，图片比例为1x1');
+                    return false;
+                }
+                /*成员图片验证*/
+                /*成员姓名验证*/
+                if ($("#form_member_id" + "{$selId}").find("input[name='mem_name']").val() === '') {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_name").addClass('verify_error').text('请输入团队成员姓名');
+                    return false;
+                }
+                if ($("#form_member_id" + "{$selId}").find("input[name='mem_name']").val().length < 2) {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_name").addClass('verify_error').text('团队成员姓名长度不小于2');
+                    return false;
+                }
+                if ($("#form_member_id" + "{$selId}").find("input[name='mem_name']").val().length > 20) {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_name").addClass('verify_error').text('团队成员姓名长度不大于20');
+                    return false;
+                }
+                if (special_character_rule.test($("#form_member_id" + "{$selId}").find("input[name='mem_name']").val()) === true) {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_name").addClass('verify_error').text('团队成员姓名不能有特殊字符');
+                    return false;
+                }
+                /*成员姓名验证*/
+                /*成员职位验证*/
+                if ($("#form_member_id" + "{$selId}").find("input[name='mem_pos']").val() === '') {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_pos").addClass('verify_error').text('请输入成员职位');
+                    return false;
+                }
+                if ($("#form_member_id" + "{$selId}").find("input[name='mem_pos']").val().length < 2) {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_pos").addClass('verify_error').text('成员职位长度不小于2');
+                    return false;
+                }
+                if ($("#form_member_id" + "{$selId}").find("input[name='mem_pos']").val().length > 20) {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_pos").addClass('verify_error').text('成员职位长度不大于20');
+                    return false;
+                }
+                if (special_character_rule.test($("#form_member_id" + "{$selId}").find("input[name='mem_pos']").val()) === true) {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_pos").addClass('verify_error').text('成员职位不能有特殊字符');
+                }
+                /*成员职位验证*/
+                /*个人简介验证*/
+                if ($("#form_member_id" + "{$selId}").find("textarea[name='mem_intro']").val() === '') {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_intro").addClass('verify_error').text('请输入成员简介');
+                    return false;
+                }
+                if ($("#form_member_id" + "{$selId}").find("textarea[name='mem_intro']").val().length < 10) {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_intro").addClass('verify_error').text('成员简介长度不小于10');
+                    return false;
+                }
+                if ($("#form_member_id" + "{$selId}").find("textarea[name='mem_intro']").val().length > 2000) {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_intro").addClass('verify_error').text('成员简介长度不大于2000');
+                    return false;
+                }
+                if (special_character_rule.test($("#form_member_id" + "{$selId}").find("textarea[name='mem_intro']").val()) === true) {
+                    $("#form_member_id" + "{$selId}").find(".creat_fontb_mem_intro").addClass('verify_error').text('成员简介不能有特殊字符');
+                }
+                /*个人简介验证*/
+            },
+            success: function (data) {
+                if ("{$selId}" == "new") {
+                    $("#edit_mem").append(data);
+                    form_reset();
+                } else {
+                    $("div[replaceId=" + "{$selId}" + "]").html(data);
+                }
+                // window.location.href = data;
+            }
+        });
+    })
+</script>

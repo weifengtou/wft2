@@ -1,0 +1,82 @@
+<extend name="Base:layout_login" />
+
+<block name="head">
+	<script src="__STATIC__/jquery.form.js"></script>
+	<style>
+	body{
+		background: #eff;
+	}
+	</style>
+	<script>
+	jQuery(document).ready(function($) {
+        //防止返回
+        window.history.forward(1);
+		$("form").ajaxForm({
+			beforeSubmit:function (e) {
+				if($('input[name="username"]').val()==''){
+					$('input[name="username"]').parent().addClass("has-error");
+					$('input[name="username"]').focus();
+					$("#error_msg").html("用户名不能为空");
+					return false;
+				}else{
+					$('input[name="username"]').parent().removeClass("has-error");
+					$("#error_msg").html();
+				}
+				if($('input[name="password"]').val()==''){
+					$('input[name="password"]').parent().addClass("has-error");
+					$('input[name="password"]').focus();
+					$("#error_msg").html("密码不能为空");
+					return false;
+				}else{
+					$('input[name="password"]').parent().removeClass("has-error");
+					$("#error_msg").html();
+				}
+			},
+			success:function(data){
+				data = jQuery.parseJSON(data);
+				if (data["status"]=="error") {
+					$("#error_msg").html(data['msg']);
+				}else{
+					location.href = data['src'];
+				}
+			}
+		})
+	});
+	</script>
+</block>
+
+<block name="body">
+	<div style="height:200px;"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">请登录</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="post" action="{:U('checkAdminUser')}">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="用户名" name="username" type="username" value="{:cookie('username')}" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="密码" name="password" type="password" value="{:cookie('password')}">
+                                </div>
+                                <div id="error_msg" class="text_red"></div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" <?php if (cookie("remember")=="on"): ?>
+                                        	checked="checked"
+                                        <?php endif; ?>>记住我
+                                    </label>
+                                </div>
+                                <button class="btn btn-lg btn-success btn-block">登录</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
